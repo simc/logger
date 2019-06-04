@@ -29,12 +29,22 @@ class PrettyPrinter extends LogPrinter {
     Level.wtf: AnsiPen()..xterm(199),
   };
 
+  static final emojis = {
+    Level.verbose: '',
+    Level.debug: '🐛 ',
+    Level.info: '💡 ',
+    Level.warning: '⚠️ ',
+    Level.error: '⛔ ',
+    Level.wtf: '👾 ',
+  };
+
   static final stackTraceRegex = RegExp(r'#[0-9]+[\s]+(.+) \(([^\s]+)\)');
   static const String indent = '  ';
 
   final int methodCount;
   final int errorMethodCount;
   final int lineLength;
+  final bool printEmojis;
 
   String topBorder = '';
   String middleBorder = '';
@@ -44,6 +54,7 @@ class PrettyPrinter extends LogPrinter {
     this.methodCount = 2,
     this.errorMethodCount = 8,
     this.lineLength = 120,
+    this.printEmojis = true,
   }) {
     var doubleDividerLine = StringBuffer();
     var singleDividerLine = StringBuffer();
@@ -92,7 +103,7 @@ class PrettyPrinter extends LogPrinter {
         if (match.group(2).startsWith('package:logger')) {
           continue;
         }
-        var newLine = ("#${count + 1}   ${match.group(1)} (${match.group(2)})");
+        var newLine = ("#$count   ${match.group(1)} (${match.group(2)})");
         formatted.add(newLine.replaceAll('<anonymous closure>', '()'));
         if (++count == methodCount) {
           break;
@@ -148,8 +159,10 @@ class PrettyPrinter extends LogPrinter {
       output.add(pen(middleBorder));
     }
 
+    var emoji = printEmojis ? emojis[level] : '';
     for (var line in message.split('\n')) {
-      output.add(pen('$verticalLine $line'));
+      output.add(pen('$verticalLine $emoji$line'));
+      emoji = '';
     }
     output.add(pen(bottomBorder));
 

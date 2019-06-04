@@ -71,7 +71,8 @@ var logger = Logger(
   printer: PrettyPrinter(
     methodCount: 2, // number of method calls to be displayed
     errorMethodCount: 8, // number of method calls if stacktrace is provided
-    lineLength : 120 // width of the output
+    lineLength: 120, // width of the output
+    printEmojis: true, // Print an emoji for each log message
   ),
 )
 ```
@@ -93,13 +94,16 @@ If you created a cool `LogPrinter` which might be helpful to others, feel free t
 
 ## LogFilter
 
-The `LogFilter` filters which logs should be shown and which don't.
-The default implementation shows all logs with `level >= Logger.level` while in debug mode. In release mode all logs are omitted.
+The `LogFilter` decides which logs should be shown and which don't.
+The default implementation (`DebugFilter`) shows all logs with `level >= Logger.level` while in debug mode. In release mode all logs are omitted.
 
 You can create your own `LogFilter` like this:
 ```dart
-var filter = (Level level, dynamic message, dynamic error, StackTrace stackTrace) {
+class MyFilter extends LogFilter {
+  @override
+  bool shouldLog(Level level, dynamic message, [dynamic error, StackTrace stackTrace]) {
     return true;
+  }
 }
 ```
 This will show all logs even in release mode. (**NOT** a good idea)

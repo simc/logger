@@ -12,24 +12,25 @@ enum Level {
   nothing,
 }
 
-/// `LogFilter` is called every time a new log message is sent and decides if
-/// it will be printed or canceled.
-///
-/// The default implementation is [Logger._defaultFilter].
-/// Every implementation should consider [Logger.level].
-typedef LogFilter = bool Function(
-  Level level,
-  dynamic message, [
-  dynamic error,
-  StackTrace stackTrace,
-]);
-
 /// An abstract handler of log messages.
 ///
 /// You can implement a `LogPrinter` from scratch or extend [PrettyPrinter].
 abstract class LogPrinter {
   /// Is called by the Logger for each log message.
   void log(Level level, dynamic message, dynamic error, StackTrace stackTrace);
+}
+
+/// An abstract handler of log messages.
+///
+/// You can implement your own `LogFilter` or use [DebugFilter].
+/// Every implementation should consider [Logger.level].
+abstract class LogFilter {
+  /// Is called every time a new log message is sent and decides if
+  /// it will be printed or canceled.
+  ///
+  /// Returns `true` if the message should be logged.
+  bool shouldLog(Level level, dynamic message,
+      [dynamic error, StackTrace stackTrace]);
 }
 
 /// Use instances of logger to send log messages to the [LogPrinter].
@@ -48,7 +49,7 @@ class Logger {
   /// [PrettyPrinter] and [_defaultFilter] will be used.
   Logger({LogPrinter printer, LogFilter filter})
       : _printer = printer ?? PrettyPrinter(),
-        _filter = filter ?? _defaultFilter;
+        _filter = filter ?? DebugFilter();
 
   /// Log message at level [Level.verbose].
   void v(dynamic message, [dynamic error, StackTrace stackTrace]) {
@@ -83,25 +84,8 @@ class Logger {
   /// Log message with [level].
   void log(Level level, dynamic message,
       [dynamic error, StackTrace stackTrace]) {
-    if (_filter(level, message, error, stackTrace)) {
+    if (_filter.shouldLog(level, message, error, stackTrace)) {
       _printer.log(level, message, error, stackTrace);
     }
-  }
-
-  /// Default implementation of [LogFilter]. All log
-  static bool _defaultFilter(
-    Level level,
-    dynamic message, [
-    dynamic error,
-    StackTrace stackTrace,
-  ]) {
-    var shouldLog = false;
-    assert(() {
-      if (level.index >= Logger.level.index) {
-        shouldLog = true;
-      }
-      return true;
-    }());
-    return shouldLog;
   }
 }
