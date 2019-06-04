@@ -1,29 +1,21 @@
 import 'package:logger/logger.dart';
 
-var logger = Logger();
+var logger = Logger(printer: PrettyPrinter());
 
-var loggerNoStack = Logger(printer: PrettyPrinter());
+var loggerNoStack = Logger(printer: PrettyPrinter(methodCount: 0));
 
 void main() {
-  teesr();
+  demo();
 }
 
-void foo() {
-  logger.v("Log message with 2 methods");
+void demo() {
+  logger.d("Log message with 2 methods");
 
-  logger.d("Log message with 2 methods", "MIST");
+  loggerNoStack.i("Info message");
 
-  logger.i("Log message with 2 methods");
+  loggerNoStack.w("Just a warning!");
 
-  logger.w("Just a warning!");
+  logger.e("Error! Something bad happened", "Test Error");
 
-  logger.e("Error! Something bad happened", "PROB");
-
-  logger.wtf("Hello world.", "PROBLEM!", StackTrace.current);
-
-  logger.d({"key": 5, "value": "something"});
-}
-
-void teesr() {
-  foo();
+  loggerNoStack.v({"key": 5, "value": "something"});
 }
