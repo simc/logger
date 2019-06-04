@@ -1,15 +1,15 @@
 # Logger
 
-[![Version](https://img.shields.io/pub/v/logger.svg)](https://pub.dartlang.org/packages/logger) ![Runtime](https://img.shields.io/badge/dart-%3E%3D2.1-brightgreen.svg) ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
+[![Version](https://img.shields.io/pub/v/logger.svg)](https://pub.dev/packages/logger) ![Runtime](https://img.shields.io/badge/dart-%3E%3D2.1-brightgreen.svg) ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
 
-Small, easy to use and extensible logger which prints beautiful logs.
+Small, easy to use and extensible logger which prints beautiful logs.<br>
 Inspired by [logger](https://github.com/orhanobut/logger) for Android.
 
 **Show some ❤️ and star the repo to support the project**
 
 ### Resources:
-- [Documentation](https://pub.dartlang.org/documentation/logger/latest/logger/)
-- [Pub Package](https://pub.dartlang.org/packages/logger)
+- [Documentation](https://pub.dev/documentation/logger/latest/logger/logger-library.html)
+- [Pub Package](https://pub.dev/packages/logger)
 - [GitHub Repository](https://github.com/leisim/logger)
 
 ## Getting Started

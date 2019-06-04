@@ -32,6 +32,7 @@ abstract class LogPrinter {
   void log(Level level, dynamic message, dynamic error, StackTrace stackTrace);
 }
 
+/// Use instances of logger to send log messages to the [LogPrinter].
 class Logger {
   /// The current logging level of the app.
   ///
@@ -41,7 +42,7 @@ class Logger {
   final LogPrinter _printer;
   final LogFilter _filter;
 
-  /// Create a new Logger.
+  /// Create a new instance of Logger.
   ///
   /// You can provide a custom [printer] and [filter]. Otherwise the default
   /// [PrettyPrinter] and [_defaultFilter] will be used.

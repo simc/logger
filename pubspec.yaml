@@ -2,7 +2,7 @@ name: logger
 description: Small, easy to use and extensible logger which prints beautiful logs.
 version: 0.4.0
 author: Simon Leier <simonleier@gmail.com>
-homepage: http://github.com/leisim/logger
+homepage: https://github.com/leisim/logger
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
