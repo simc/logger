@@ -1,6 +1,6 @@
 # Logger
 
-[![Version](https://img.shields.io/pub/v/logger.svg)](https://pub.dev/packages/logger) ![Runtime](https://img.shields.io/badge/dart-%3E%3D2.1-brightgreen.svg) ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
+[![Travis](https://img.shields.io/travis/com/leisim/logger/master.svg)](https://travis-ci.com/leisim/logger) [![Version](https://img.shields.io/pub/v/logger.svg)](https://pub.dev/packages/logger) ![Runtime](https://img.shields.io/badge/dart-%3E%3D2.1-brightgreen.svg) ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
 
 Small, easy to use and extensible logger which prints beautiful logs.<br>
 Inspired by [logger](https://github.com/orhanobut/logger) for Android.
