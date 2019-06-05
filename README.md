@@ -63,6 +63,7 @@ When creating a logger, you can pass some options:
 var logger = Logger(
   printer: PrettyPrinter(), // Use the PrettyPrinter to format and print log
   filter: null, // Use the default LogFilter (-> only log in debug mode)
+  output: null, // Use the default LogOutput (-> send everything to console)
 );
 ```
 
@@ -74,25 +75,13 @@ var logger = Logger(
     methodCount: 2, // number of method calls to be displayed
     errorMethodCount: 8, // number of method calls if stacktrace is provided
     lineLength: 120, // width of the output
+    colors: true, // Colorful log messages
     printEmojis: true, // Print an emoji for each log message
+    printTime: false // Should each log print contain a timestamp
   ),
 )
 ```
 
-## LogPrinter
-
-You can implement your own `LogPrinter`. This gives you maximum flexibility. A very basic printer could look like this:
-
-```
-class MyPrinter extends LogPrinter {
-  @override
-  void log(Level level, dynamic message, dynamic error, StackTrace stackTrace) {
-    print(message);
-  }
-}
-```
-
-If you created a cool `LogPrinter` which might be helpful to others, feel free to open a pull request. :)
 
 ## LogFilter
 
@@ -109,6 +98,43 @@ class MyFilter extends LogFilter {
 }
 ```
 This will show all logs even in release mode. (**NOT** a good idea)
+
+
+## LogPrinter
+
+You can implement your own `LogPrinter`. This gives you maximum flexibility. A very basic printer could look like this:
+
+```dart
+class MyPrinter extends LogPrinter {
+  @override
+  void log(Level level, dynamic message, dynamic error, StackTrace stackTrace) {
+    println(message);
+  }
+}
+```
+
+**Important:** Every implementation has to send its output using the `println()` method.
+
+If you created a cool `LogPrinter` which might be helpful to others, feel free to open a pull request. :)
+
+
+## LogOutput
+
+`LogOutput` sends the log lines to the desired destination. The default implementation (`ConsoleOutput`) send every line to the system console.
+
+```dart
+class ConsoleOutput extends LogOutput {
+  @override
+  void output(Level level, List<String> lines) {
+    for (var line in lines) {
+      print(line);
+    }
+  }
+}
+```
+
+Possible future `LogOutput`s could send to a file, firebase or to Logcat. Feel free to open pull requests.
+
 
 ## MIT License
 ```

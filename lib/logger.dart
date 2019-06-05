@@ -2,8 +2,9 @@
 library logger;
 
 import 'dart:convert';
-import 'package:ansicolor/ansicolor.dart';
+import 'src/ansi_color.dart';
 
-part 'src/debug_filter.dart';
-part 'src/pretty_printer.dart';
+part 'src/default/console_output.dart';
+part 'src/default/debug_filter.dart';
+part 'src/default/pretty_printer.dart';
 part 'src/logger.dart';

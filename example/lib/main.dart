@@ -1,10 +1,14 @@
 import 'package:logger/logger.dart';
 
-var logger = Logger();
+var logger = Logger(
+  printer: PrettyPrinter(),
+);
 
-var loggerNoStack = Logger(printer: PrettyPrinter(methodCount: 0));
+var loggerNoStack = Logger(
+  printer: PrettyPrinter(methodCount: 0),
+);
 
-void main() {
+void main() async {
   demo();
 }
 
