@@ -61,8 +61,8 @@ When creating a logger, you can pass some options:
 
 ```dart
 var logger = Logger(
-  printer: PrettyPrinter(), // Use the PrettyPrinter to format and print log
   filter: null, // Use the default LogFilter (-> only log in debug mode)
+  printer: PrettyPrinter(), // Use the PrettyPrinter to format and print log
   output: null, // Use the default LogOutput (-> send everything to console)
 );
 ```
