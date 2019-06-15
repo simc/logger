@@ -22,4 +22,6 @@ void demo() {
   logger.e("Error! Something bad happened", "Test Error");
 
   loggerNoStack.v({"key": 5, "value": "something"});
+
+  print("Test\nTest2");
 }

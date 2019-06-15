@@ -3,7 +3,7 @@ part of logger;
 /// Default implementation of [LogPrinter].
 ///
 /// Outut looks like this:
-///
+/// ```
 /// ┌──────────────────────────
 /// │ Error info
 /// ├┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄
@@ -78,26 +78,26 @@ class PrettyPrinter extends LogPrinter {
   }
 
   @override
-  void log(Level level, dynamic message, dynamic error, StackTrace stackTrace) {
-    var messageStr = stringifyMessage(message);
+  void log(LogEvent event) {
+    var messageStr = stringifyMessage(event.message);
 
     String stackTraceStr;
-    if (stackTrace == null) {
+    if (event.stackTrace == null) {
       if (methodCount > 0) {
         stackTraceStr = formatStackTrace(StackTrace.current, methodCount);
       }
     } else if (errorMethodCount > 0) {
-      stackTraceStr = formatStackTrace(stackTrace, errorMethodCount);
+      stackTraceStr = formatStackTrace(event.stackTrace, errorMethodCount);
     }
 
-    var errorStr = error?.toString();
+    var errorStr = event.error?.toString();
 
     String timeStr;
     if (printTime) {
       timeStr = getTime();
     }
 
-    formatAndPrint(level, messageStr, timeStr, errorStr, stackTraceStr);
+    formatAndPrint(event.level, messageStr, timeStr, errorStr, stackTraceStr);
   }
 
   String formatStackTrace(StackTrace stackTrace, int methodCount) {

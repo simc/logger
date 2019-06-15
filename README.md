@@ -1,6 +1,4 @@
-<img src="https://raw.githubusercontent.com/leisim/logger/master/art/logo.svg?sanitize=true" width="200"/>
-
-<hr>
+# Logger
 
 [![Travis](https://img.shields.io/travis/com/leisim/logger/master.svg)](https://travis-ci.com/leisim/logger) [![Version](https://img.shields.io/pub/v/logger.svg)](https://pub.dev/packages/logger) ![Runtime](https://img.shields.io/badge/dart-%3E%3D2.1-brightgreen.svg) ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
 
@@ -85,14 +83,14 @@ var logger = Logger(
 
 ## LogFilter
 
-The `LogFilter` decides which logs should be shown and which don't.
+The `LogFilter` decides which log events should be shown and which don't.<br>
 The default implementation (`DebugFilter`) shows all logs with `level >= Logger.level` while in debug mode. In release mode all logs are omitted.
 
 You can create your own `LogFilter` like this:
 ```dart
 class MyFilter extends LogFilter {
   @override
-  bool shouldLog(Level level, dynamic message, [dynamic error, StackTrace stackTrace]) {
+  bool shouldLog(LogEvent event) {
     return true;
   }
 }
@@ -102,13 +100,15 @@ This will show all logs even in release mode. (**NOT** a good idea)
 
 ## LogPrinter
 
-You can implement your own `LogPrinter`. This gives you maximum flexibility. A very basic printer could look like this:
+The `LogPrinter` creates and formats the output, which is then sent to the `LogOutput`.<br>
+You can implement your own `LogPrinter`. This gives you maximum flexibility.
 
+A very basic printer could look like this:
 ```dart
 class MyPrinter extends LogPrinter {
   @override
-  void log(Level level, dynamic message, dynamic error, StackTrace stackTrace) {
-    println(message);
+  void log(LogEvent event) {
+    println(event.message);
   }
 }
 ```
@@ -120,13 +120,14 @@ If you created a cool `LogPrinter` which might be helpful to others, feel free t
 
 ## LogOutput
 
-`LogOutput` sends the log lines to the desired destination. The default implementation (`ConsoleOutput`) send every line to the system console.
+`LogOutput` sends the log lines to the desired destination.<br>
+The default implementation (`ConsoleOutput`) send every line to the system console.
 
 ```dart
 class ConsoleOutput extends LogOutput {
   @override
-  void output(Level level, List<String> lines) {
-    for (var line in lines) {
+  void output(OutputEvent event) {
+    for (var line in event.lines) {
       print(line);
     }
   }
