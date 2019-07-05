@@ -8,7 +8,7 @@ class FileOutput extends LogOutput {
   IOSink _sink;
 
   FileOutput({
-    @required this.file,
+    this.file,
     this.overrideExisting = false,
     this.encoding = utf8,
   });

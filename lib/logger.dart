@@ -4,7 +4,6 @@ library logger;
 import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
-import 'package:meta/meta.dart';
 
 import 'src/ansi_color.dart';
 
