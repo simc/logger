@@ -31,8 +31,8 @@ Instead of a string message, you can also pass other objects like `List`, `Map` 
 
 If you are creating a Flutter app, you can use the [logger_flutter](#logger-flutter-extension) extension. Shake the phone to show an on device console. 
 
-| ![](https://raw.githubusercontent.com/leisim/logger/master/art/log_console_before.png) | ![](https://raw.githubusercontent.com/leisim/logger/master/art/log_console_light.png) | ![](https://raw.githubusercontent.com/leisim/logger/master/art/log_console_dark.png) |
-|---|---|---|
+| ![](https://raw.githubusercontent.com/leisim/logger/master/art/log_console_light.png) | ![](https://raw.githubusercontent.com/leisim/logger/master/art/log_console_dark.png) |
+|---|---|
 
 # Documentation
 
