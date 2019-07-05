@@ -1,4 +1,4 @@
-## 0.7.0
+## 0.7.0+1
 - Added `ProductionFilter`, `FileOutput`, `MemoryOutput`, `SimplePrinter`
 - Breaking: Changed `LogFilter`, `LogPrinter` and `LogOutput`
 

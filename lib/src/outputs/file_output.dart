@@ -29,6 +29,6 @@ class FileOutput extends LogOutput {
   @override
   void destroy() async {
     await _sink.flush();
-    _sink.close();
+    await _sink.close();
   }
 }
