@@ -12,7 +12,7 @@ class MemoryOutput extends LogOutput {
   @override
   void output(OutputEvent event) {
     if (buffer.length == bufferSize) {
-      buffer.take(1);
+      buffer.removeFirst();
     }
 
     buffer.add(event);
