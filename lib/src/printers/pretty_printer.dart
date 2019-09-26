@@ -1,4 +1,8 @@
-part of logger;
+import 'dart:convert';
+
+import '../logger.dart';
+import '../log_printer.dart';
+import '../ansi_color.dart';
 
 /// Default implementation of [LogPrinter].
 ///

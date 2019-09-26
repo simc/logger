@@ -1,4 +1,4 @@
-part of logger;
+import 'logger.dart';
 
 /// An abstract handler of log events.
 ///
@@ -8,7 +8,7 @@ part of logger;
 ///
 /// You can implement a `LogPrinter` from scratch or extend [PrettyPrinter].
 abstract class LogPrinter {
-  List<String> _buffer;
+  List<String> buffer;
 
   void init() {}
 
@@ -20,6 +20,6 @@ abstract class LogPrinter {
 
   /// Sends a line to the [LogOutput].
   void println(String line) {
-    _buffer.add(line);
+    buffer.add(line);
   }
 }

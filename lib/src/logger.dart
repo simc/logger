@@ -1,4 +1,9 @@
-part of logger;
+import 'filters/debug_filter.dart';
+import 'printers/pretty_printer.dart';
+import 'outputs/console_output.dart';
+import 'log_filter.dart';
+import 'log_printer.dart';
+import 'log_output.dart';
 
 /// [Level]s to control logging output. Logging can be enabled to include all
 /// levels above certain [Level].
@@ -57,7 +62,7 @@ class Logger {
         _printer = printer ?? PrettyPrinter(),
         _output = output ?? ConsoleOutput() {
     _filter.init();
-    _printer._buffer = _outputBuffer;
+    _printer.buffer = _outputBuffer;
     _printer.init();
     _output.init();
   }
@@ -116,7 +121,7 @@ class Logger {
         }
         _output.output(outputEvent);
         _outputBuffer = [];
-        _printer._buffer = _outputBuffer;
+        _printer.buffer = _outputBuffer;
       }
     }
   }
@@ -127,7 +132,7 @@ class Logger {
     _outputBuffer = null;
     _filter.destroy();
     _printer.destroy();
-    _printer._buffer = null;
+    _printer.buffer = null;
     _output.destroy();
   }
 

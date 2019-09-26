@@ -1,4 +1,8 @@
-part of logger;
+import 'dart:convert';
+import 'dart:io';
+
+import '../logger.dart';
+import '../log_output.dart';
 
 /// Writes the log output to a file.
 class FileOutput extends LogOutput {

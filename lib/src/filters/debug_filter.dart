@@ -1,4 +1,5 @@
-part of logger;
+import '../logger.dart';
+import '../log_filter.dart';
 
 /// Default implementation of [LogFilter].
 ///

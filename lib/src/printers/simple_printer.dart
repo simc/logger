@@ -1,4 +1,7 @@
-part of logger;
+import 'dart:convert';
+
+import '../logger.dart';
+import '../log_printer.dart';
 
 /// Outputs simple log messages:
 /// ```

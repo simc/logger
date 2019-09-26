@@ -1,4 +1,5 @@
-part of logger;
+import '../logger.dart';
+import '../log_output.dart';
 
 /// Default implementation of [LogOutput].
 ///
