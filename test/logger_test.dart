@@ -39,6 +39,13 @@ void main() {
     printedStackTrace = s;
   });
 
+  setUp(() {
+    printedLevel = null;
+    printedMessage = null;
+    printedError = null;
+    printedStackTrace = null;
+  });
+
   test('Logger.log', () {
     Logger logger = Logger(filter: _NeverFilter(), printer: callbackPrinter);
     logger.log(Level.debug, "Some message");
