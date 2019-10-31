@@ -5,6 +5,7 @@ part of logger;
 /// You can implement your own `LogFilter` or use [DebugFilter].
 /// Every implementation should consider [Logger.level].
 abstract class LogFilter {
+  Level level;
   void init() {}
 
   /// Is called every time a new log message is sent and decides if

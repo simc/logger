@@ -143,4 +143,19 @@ void main() {
     expect(printedError, "Error");
     expect(printedStackTrace, stackTrace);
   });
+
+  test('setting log level above log level of message', () {
+    printedMessage = null;
+    var logger = Logger(
+      filter: ProductionFilter(),
+      printer: callbackPrinter,
+      level: Level.warning,
+    );
+
+    logger.d("This isn't logged");
+    expect(printedMessage, isNull);
+
+    logger.w("This is");
+    expect(printedMessage, "This is");
+  });
 }

@@ -52,11 +52,16 @@ class Logger {
   /// You can provide a custom [printer], [filter] and [output]. Otherwise the
   /// defaults: [PrettyPrinter], [DebugFilter] and [ConsoleOutput] will be
   /// used.
-  Logger({LogFilter filter, LogPrinter printer, LogOutput output})
-      : _filter = filter ?? DebugFilter(),
+  Logger({
+    LogFilter filter,
+    LogPrinter printer,
+    LogOutput output,
+    Level level,
+  })  : _filter = filter ?? DebugFilter(),
         _printer = printer ?? PrettyPrinter(),
         _output = output ?? ConsoleOutput() {
     _filter.init();
+    _filter.level = level ?? Logger.level;
     _printer._buffer = _outputBuffer;
     _printer.init();
     _output.init();

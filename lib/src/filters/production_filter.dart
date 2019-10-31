@@ -4,6 +4,6 @@ part of logger;
 class ProductionFilter extends LogFilter {
   @override
   bool shouldLog(LogEvent event) {
-    return event.level.index >= Logger.level.index;
+    return event.level.index >= level.index;
   }
 }
