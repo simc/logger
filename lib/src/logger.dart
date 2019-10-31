@@ -1,9 +1,9 @@
-import 'filters/debug_filter.dart';
-import 'printers/pretty_printer.dart';
-import 'outputs/console_output.dart';
-import 'log_filter.dart';
-import 'log_printer.dart';
-import 'log_output.dart';
+import 'package:logger/src/filters/debug_filter.dart';
+import 'package:logger/src/printers/pretty_printer.dart';
+import 'package:logger/src/outputs/console_output.dart';
+import 'package:logger/src/log_filter.dart';
+import 'package:logger/src/log_printer.dart';
+import 'package:logger/src/log_output.dart';
 
 /// [Level]s to control logging output. Logging can be enabled to include all
 /// levels above certain [Level].
