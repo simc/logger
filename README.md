@@ -116,13 +116,11 @@ A very basic printer could look like this:
 ```dart
 class MyPrinter extends LogPrinter {
   @override
-  void log(LogEvent event) {
-    println(event.message);
+  List<String> log(LogEvent event) {
+    return [event.message];
   }
 }
 ```
-
-**Important:** Every implementation has to send its output using the `println()` method.
 
 If you created a cool `LogPrinter` which might be helpful to others, feel free to open a pull request. :)
 

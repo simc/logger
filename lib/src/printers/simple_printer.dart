@@ -22,11 +22,11 @@ class SimplePrinter extends LogPrinter {
   SimplePrinter({this.printTime = false});
 
   @override
-  void log(LogEvent event) {
+  List<String> log(LogEvent event) {
     var messageStr = stringifyMessage(event.message);
     var errorStr = event.error != null ? "  ERROR: ${event.error}" : "";
     var timeStr = printTime ? "TIME: ${DateTime.now().toIso8601String()}" : "";
-    println("${levelPrefixes[event.level]} $timeStr $messageStr$errorStr");
+    return ["${levelPrefixes[event.level]} $timeStr $messageStr$errorStr"];
   }
 
   String stringifyMessage(dynamic message) {

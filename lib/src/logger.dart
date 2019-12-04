@@ -49,7 +49,6 @@ class Logger {
   final LogFilter _filter;
   final LogPrinter _printer;
   final LogOutput _output;
-  List<String> _outputBuffer = [];
   bool _active = true;
 
   /// Create a new instance of Logger.
@@ -66,7 +65,6 @@ class Logger {
         _printer = printer ?? PrettyPrinter(),
         _output = output ?? ConsoleOutput() {
     _filter.init();
-    _printer.buffer = _outputBuffer;
     _filter.level = level ?? Logger.level;
     _printer.init();
     _output.init();
@@ -117,16 +115,14 @@ class Logger {
       for (var callback in _logCallbacks) {
         callback(logEvent);
       }
-      _printer.log(logEvent);
+      var output = _printer.log(logEvent);
 
-      if (_outputBuffer.isNotEmpty) {
-        var outputEvent = OutputEvent(level, _outputBuffer);
+      if (output.isNotEmpty) {
+        var outputEvent = OutputEvent(level, output);
         for (var callback in _outputCallbacks) {
           callback(outputEvent);
         }
         _output.output(outputEvent);
-        _outputBuffer = [];
-        _printer.buffer = _outputBuffer;
       }
     }
   }
@@ -134,10 +130,8 @@ class Logger {
   /// Closes the logger and releases all resources.
   void close() {
     _active = false;
-    _outputBuffer = null;
     _filter.destroy();
     _printer.destroy();
-    _printer.buffer = null;
     _output.destroy();
   }
 

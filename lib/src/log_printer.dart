@@ -8,18 +8,11 @@ import 'package:logger/src/logger.dart';
 ///
 /// You can implement a `LogPrinter` from scratch or extend [PrettyPrinter].
 abstract class LogPrinter {
-  List<String> buffer;
-
   void init() {}
 
   /// Is called every time a new [LogEvent] is sent and handles printing or
   /// storing the message.
-  void log(LogEvent event);
+  List<String> log(LogEvent event);
 
   void destroy() {}
-
-  /// Sends a line to the [LogOutput].
-  void println(String line) {
-    buffer.add(line);
-  }
 }
