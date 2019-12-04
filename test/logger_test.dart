@@ -39,6 +39,13 @@ void main() {
     printedStackTrace = s;
   });
 
+  setUp(() {
+    printedLevel = null;
+    printedMessage = null;
+    printedError = null;
+    printedStackTrace = null;
+  });
+
   test('Logger.log', () {
     Logger logger = Logger(filter: _NeverFilter(), printer: callbackPrinter);
     logger.log(Level.debug, "Some message");
@@ -135,5 +142,20 @@ void main() {
     expect(printedMessage, "Test");
     expect(printedError, "Error");
     expect(printedStackTrace, stackTrace);
+  });
+
+  test('setting log level above log level of message', () {
+    printedMessage = null;
+    var logger = Logger(
+      filter: ProductionFilter(),
+      printer: callbackPrinter,
+      level: Level.warning,
+    );
+
+    logger.d("This isn't logged");
+    expect(printedMessage, isNull);
+
+    logger.w("This is");
+    expect(printedMessage, "This is");
   });
 }

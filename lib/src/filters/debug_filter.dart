@@ -10,7 +10,7 @@ class DebugFilter extends LogFilter {
   bool shouldLog(LogEvent event) {
     var shouldLog = false;
     assert(() {
-      if (event.level.index >= Logger.level.index) {
+      if (event.level.index >= level.index) {
         shouldLog = true;
       }
       return true;

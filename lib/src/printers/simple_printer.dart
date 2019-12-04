@@ -25,7 +25,8 @@ class SimplePrinter extends LogPrinter {
   void log(LogEvent event) {
     var messageStr = stringifyMessage(event.message);
     var errorStr = event.error != null ? "  ERROR: ${event.error}" : "";
-    println("${levelPrefixes[event.level]}  $messageStr$errorStr");
+    var timeStr = printTime ? "TIME: ${DateTime.now().toIso8601String()}" : "";
+    println("${levelPrefixes[event.level]} $timeStr $messageStr$errorStr");
   }
 
   String stringifyMessage(dynamic message) {
