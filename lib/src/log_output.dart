@@ -1,4 +1,4 @@
-part of logger;
+import 'package:logger/src/logger.dart';
 
 /// Log output receives a [OutputEvent] from [LogPrinter] and sends it to the
 /// desired destination.

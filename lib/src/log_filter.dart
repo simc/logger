@@ -1,4 +1,4 @@
-part of logger;
+import 'package:logger/src/logger.dart';
 
 /// An abstract filter of log messages.
 ///
