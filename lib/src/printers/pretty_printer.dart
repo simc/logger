@@ -82,7 +82,7 @@ class PrettyPrinter extends LogPrinter {
   }
 
   @override
-  void log(LogEvent event) {
+  List<String> log(LogEvent event) {
     var messageStr = stringifyMessage(event.message);
 
     String stackTraceStr;
@@ -101,7 +101,13 @@ class PrettyPrinter extends LogPrinter {
       timeStr = getTime();
     }
 
-    formatAndPrint(event.level, messageStr, timeStr, errorStr, stackTraceStr);
+    return _formatAndPrint(
+      event.level,
+      messageStr,
+      timeStr,
+      errorStr,
+      stackTraceStr,
+    );
   }
 
   String formatStackTrace(StackTrace stackTrace, int methodCount) {
@@ -190,40 +196,48 @@ class PrettyPrinter extends LogPrinter {
     }
   }
 
-  formatAndPrint(Level level, String message, String time, String error,
-      String stacktrace) {
+  List<String> _formatAndPrint(
+    Level level,
+    String message,
+    String time,
+    String error,
+    String stacktrace,
+  ) {
+    List<String> buffer = [];
     var color = _getLevelColor(level);
-    println(color(_topBorder));
+    buffer.add(color(_topBorder));
 
     if (error != null) {
       var errorColor = _getErrorColor(level);
       for (var line in error.split('\n')) {
-        println(
+        buffer.add(
           color('$verticalLine ') +
               errorColor.resetForeground +
               errorColor(line) +
               errorColor.resetBackground,
         );
       }
-      println(color(_middleBorder));
+      buffer.add(color(_middleBorder));
     }
 
     if (stacktrace != null) {
       for (var line in stacktrace.split('\n')) {
-        println('${color}$verticalLine $line');
+        buffer.add('${color}$verticalLine $line');
       }
-      println(color(_middleBorder));
+      buffer.add(color(_middleBorder));
     }
 
     if (time != null) {
-      println(color('$verticalLine $time'));
-      println(color(_middleBorder));
+      buffer.add(color('$verticalLine $time'));
+      buffer.add(color(_middleBorder));
     }
 
     var emoji = _getEmoji(level);
     for (var line in message.split('\n')) {
-      println(color('$verticalLine $emoji$line'));
+      buffer.add(color('$verticalLine $emoji$line'));
     }
-    println(color(_bottomBorder));
+    buffer.add(color(_bottomBorder));
+
+    return buffer;
   }
 }

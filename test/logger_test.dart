@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:test/test.dart';
 import 'package:logger/logger.dart';
 
-typedef PrinterCallback = void Function(
+typedef PrinterCallback = List<String> Function(
     Level level, dynamic message, dynamic error, StackTrace stackTrace);
 
 class _AlwaysFilter extends LogFilter {
@@ -22,8 +22,13 @@ class _CallbackPrinter extends LogPrinter {
   _CallbackPrinter(this.callback);
 
   @override
-  void log(LogEvent event) {
-    callback(event.level, event.message, event.error, event.stackTrace);
+  List<String> log(LogEvent event) {
+    return callback(
+      event.level,
+      event.message,
+      event.error,
+      event.stackTrace,
+    );
   }
 }
 
@@ -37,6 +42,7 @@ void main() {
     printedMessage = m;
     printedError = e;
     printedStackTrace = s;
+    return [];
   });
 
   setUp(() {
