@@ -65,9 +65,7 @@ class PrettyPrinter extends LogPrinter {
     this.printEmojis = true,
     this.printTime = false,
   }) {
-    if (_startTime == null) {
-      _startTime = DateTime.now();
-    }
+    _startTime ??= DateTime.now();
 
     var doubleDividerLine = StringBuffer();
     var singleDividerLine = StringBuffer();
@@ -121,7 +119,7 @@ class PrettyPrinter extends LogPrinter {
         if (match.group(2).startsWith('package:logger')) {
           continue;
         }
-        var newLine = ("#$count   ${match.group(1)} (${match.group(2)})");
+        var newLine = "#$count   ${match.group(1)} (${match.group(2)})";
         formatted.add(newLine.replaceAll('<anonymous closure>', '()'));
         if (++count == methodCount) {
           break;
@@ -140,14 +138,14 @@ class PrettyPrinter extends LogPrinter {
 
   String getTime() {
     String _threeDigits(int n) {
-      if (n >= 100) return "${n}";
-      if (n >= 10) return "0${n}";
-      return "00${n}";
+      if (n >= 100) return "$n";
+      if (n >= 10) return "0$n";
+      return "00$n";
     }
 
     String _twoDigits(int n) {
-      if (n >= 10) return "${n}";
-      return "0${n}";
+      if (n >= 10) return "$n";
+      return "0$n";
     }
 
     var now = DateTime.now();
@@ -222,14 +220,13 @@ class PrettyPrinter extends LogPrinter {
 
     if (stacktrace != null) {
       for (var line in stacktrace.split('\n')) {
-        buffer.add('${color}$verticalLine $line');
+        buffer.add('$color$verticalLine $line');
       }
       buffer.add(color(_middleBorder));
     }
 
     if (time != null) {
-      buffer.add(color('$verticalLine $time'));
-      buffer.add(color(_middleBorder));
+      buffer..add(color('$verticalLine $time'))..add(color(_middleBorder));
     }
 
     var emoji = _getEmoji(level);

@@ -7,8 +7,6 @@ import 'package:logger/src/log_output.dart';
 class ConsoleOutput extends LogOutput {
   @override
   void output(OutputEvent event) {
-    for (var line in event.lines) {
-      print(line);
-    }
+    event.lines.forEach(print);
   }
 }
