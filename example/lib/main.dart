@@ -8,7 +8,7 @@ var loggerNoStack = Logger(
   printer: PrettyPrinter(methodCount: 0),
 );
 
-void main() async {
+void main() {
   demo();
 }
 
