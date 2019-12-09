@@ -1,3 +1,8 @@
+## 0.8.0
+- Fix SimplePrinter showTime #12
+- Remove buffer field
+- Update library structure (thanks @marcgraub!)
+ 
 ## 0.7.0+1
 - Added `ProductionFilter`, `FileOutput`, `MemoryOutput`, `SimplePrinter`
 - Breaking: Changed `LogFilter`, `LogPrinter` and `LogOutput`
