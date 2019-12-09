@@ -1,3 +1,6 @@
+## 0.8.1
+- Deprecate callbacks
+
 ## 0.8.0
 - Fix SimplePrinter showTime #12
 - Remove buffer field
