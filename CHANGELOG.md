@@ -1,3 +1,6 @@
+## 0.8.2
+- Add StreamOutput
+
 ## 0.8.1
 - Deprecate callbacks
 
