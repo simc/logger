@@ -7,6 +7,9 @@ homepage: https://github.com/leisim/logger
 environment:
   sdk: ">=2.1.0 <3.0.0"
 
+dependencies:
+  io: 0.3.3
+
 dev_dependencies:
   test: any
   pedantic: ^1.9.0

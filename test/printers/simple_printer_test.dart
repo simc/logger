@@ -1,6 +1,8 @@
 import 'package:test/test.dart';
 import 'package:logger/logger.dart';
 
+const ansiEscapeLiteral = '\x1B';
+
 void main() {
   LogEvent event = LogEvent(
     Level.debug,
@@ -9,17 +11,43 @@ void main() {
     StackTrace.current,
   );
 
+  var plainPrinter = SimplePrinter()
+    ..useColor = false
+    ..printTime = false;
+
   test('represent event on a single line (ignoring stacktrace)', () {
-    var outputs = SimplePrinter().log(event);
+    var outputs = plainPrinter.log(event);
 
     expect(outputs, hasLength(1));
     expect(outputs[0], '[D]  some message  ERROR: some error');
+  });
+
+  group('color', () {
+    test('print color', () {
+      // `useColor` is detected but here we override it because we want to print
+      // the ANSI control characters regardless for the test.
+      var printer = SimplePrinter()..useColor = true;
+
+      expect(printer.log(event)[0], contains(ansiEscapeLiteral));
+    });
+
+    test('toggle color', () {
+      var printer = SimplePrinter()..useColor = false;
+
+      expect(printer.log(event)[0], isNot(contains(ansiEscapeLiteral)));
+    });
   });
 
   test('print time', () {
     var printer = SimplePrinter(printTime: true);
 
     expect(printer.log(event)[0], contains('TIME'));
+  });
+
+  test('toggle time', () {
+    var printer = SimplePrinter(printTime: true)..printTime = false;
+
+    expect(printer.log(event)[0], isNot(contains('TIME')));
   });
 
   test('omits error when null', () {
@@ -43,7 +71,7 @@ void main() {
     );
 
     expect(
-      SimplePrinter().log(withMap)[0],
+      plainPrinter.log(withMap)[0],
       '[D]  {"foo":123}  ERROR: some error',
     );
   });
@@ -57,7 +85,7 @@ void main() {
     );
 
     expect(
-      SimplePrinter().log(withIterable)[0],
+      plainPrinter.log(withIterable)[0],
       '[D]  [1,2,3,4]  ERROR: some error',
     );
   });
