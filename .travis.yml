@@ -1,23 +1,8 @@
-os:
-  - osx
-env:
-  - FLUTTER_CHANNEL="stable"
-  - FLUTTER_CHANNEL="master"
-sudo: false
-before_script:
-  - cd ..
-  - git clone https://github.com/flutter/flutter.git -b $FLUTTER_CHANNEL
-  - export PATH=$PATH:$PWD/flutter/bin:$PWD/flutter/bin/cache/dart-sdk/bin
-  - cd -
-  - flutter doctor
-script:
-  - set -e # abort CI if an error happens
-  - flutter pub get
-  - dartfmt -n --set-exit-if-changed ./lib ./test ./example || travis_terminate 1
-matrix:
-  fast_finish: true
-  allow_failures:
-  - env: FLUTTER_CHANNEL="master"
-cache:
-  directories:
-    - $HOME/.pub-cache
+language: dart
+dart:
+  - stable
+
+dart_task:
+  - dartfmt
+  - dartanalyzer: --fatal-warnings .
+  - test
