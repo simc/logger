@@ -1,7 +1,6 @@
 name: logger
 description: Small, easy to use and extensible logger which prints beautiful logs.
 version: 0.8.2
-author: Simon Leier <simonleier@gmail.com>
 homepage: https://github.com/leisim/logger
 
 environment:
