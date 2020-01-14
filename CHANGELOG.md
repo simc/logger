@@ -1,3 +1,7 @@
+## 0.8.3
+- Add LogfmtPrinter
+- Add colored output to SimplePrinter
+
 ## 0.8.2
 - Add StreamOutput
 
