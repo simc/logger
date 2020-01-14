@@ -7,7 +7,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  io: 0.3.3
+  io: ^0.3.3
 
 dev_dependencies:
   test: any
