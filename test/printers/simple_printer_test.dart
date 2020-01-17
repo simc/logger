@@ -1,3 +1,4 @@
+import 'package:logger/src/printers/simple_printer.dart';
 import 'package:test/test.dart';
 import 'package:logger/logger.dart';
 
