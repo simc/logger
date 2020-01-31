@@ -1,9 +1,9 @@
 import 'package:logger/logger.dart';
 import 'package:test/test.dart';
 
-main() {
+void main() {
   test('Memory output buffer size is limited', () {
-    MemoryOutput output = MemoryOutput(bufferSize: 2);
+    var output = MemoryOutput(bufferSize: 2);
 
     final event0 = OutputEvent(Level.info, []);
     final event1 = OutputEvent(Level.info, []);

@@ -17,7 +17,7 @@ class LogfmtPrinter extends LogPrinter {
 
   @override
   List<String> log(LogEvent event) {
-    var output = StringBuffer("level=${levelPrefixes[event.level]}");
+    var output = StringBuffer('level=${levelPrefixes[event.level]}');
     if (event.message is String) {
       output.write(' msg="${event.message}"');
     } else if (event.message is Map) {

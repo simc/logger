@@ -5,10 +5,10 @@ import 'package:logger/logger.dart';
 const ansiEscapeLiteral = '\x1B';
 
 void main() {
-  LogEvent event = LogEvent(
+  var event = LogEvent(
     Level.debug,
-    "some message",
-    "some error",
+    'some message',
+    'some error',
     StackTrace.current,
   );
 
@@ -52,9 +52,9 @@ void main() {
   });
 
   test('omits error when null', () {
-    LogEvent withoutError = LogEvent(
+    var withoutError = LogEvent(
       Level.debug,
-      "some message",
+      'some message',
       null,
       StackTrace.current,
     );
@@ -66,8 +66,8 @@ void main() {
   test('deal with Map type message', () {
     var withMap = LogEvent(
       Level.debug,
-      {"foo": 123},
-      "some error",
+      {'foo': 123},
+      'some error',
       StackTrace.current,
     );
 
@@ -81,7 +81,7 @@ void main() {
     var withIterable = LogEvent(
       Level.debug,
       [1, 2, 3, 4],
-      "some error",
+      'some error',
       StackTrace.current,
     );
 

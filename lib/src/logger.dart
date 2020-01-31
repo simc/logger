@@ -33,10 +33,10 @@ class OutputEvent {
   OutputEvent(this.level, this.lines);
 }
 
-@Deprecated("Use a custom LogFilter instead")
+@Deprecated('Use a custom LogFilter instead')
 typedef LogCallback = void Function(LogEvent event);
 
-@Deprecated("Use a custom LogOutput instead")
+@Deprecated('Use a custom LogOutput instead')
 typedef OutputCallback = void Function(OutputEvent event);
 
 /// Use instances of logger to send log messages to the [LogPrinter].
@@ -109,11 +109,11 @@ class Logger {
   void log(Level level, dynamic message,
       [dynamic error, StackTrace stackTrace]) {
     if (!_active) {
-      throw ArgumentError("Logger has already been closed.");
+      throw ArgumentError('Logger has already been closed.');
     } else if (error != null && error is StackTrace) {
-      throw ArgumentError("Error parameter cannot take a StackTrace!");
+      throw ArgumentError('Error parameter cannot take a StackTrace!');
     } else if (level == Level.nothing) {
-      throw ArgumentError("Log events cannot have Level.nothing");
+      throw ArgumentError('Log events cannot have Level.nothing');
     }
     var logEvent = LogEvent(level, message, error, stackTrace);
     if (_filter.shouldLog(logEvent)) {
@@ -143,7 +143,7 @@ class Logger {
   }
 
   /// Register a [LogCallback] which is called for each new [LogEvent].
-  @Deprecated("Use a custom LogFilter instead")
+  @Deprecated('Use a custom LogFilter instead')
   static void addLogListener(LogCallback callback) {
     _logCallbacks.add(callback);
   }
@@ -151,13 +151,13 @@ class Logger {
   /// Removes a [LogCallback] which was previously registered.
   ///
   /// Returns wheter the callback was successfully removed.
-  @Deprecated("Use a custom LogFilter instead")
+  @Deprecated('Use a custom LogFilter instead')
   static bool removeLogListener(LogCallback callback) {
     return _logCallbacks.remove(callback);
   }
 
   /// Register an [OutputCallback] which is called for each new [OutputEvent].
-  @Deprecated("Use a custom LogOutput instead")
+  @Deprecated('Use a custom LogOutput instead')
   static void addOutputListener(OutputCallback callback) {
     _outputCallbacks.add(callback);
   }
@@ -165,7 +165,7 @@ class Logger {
   /// Removes a [OutputCallback] which was previously registered.
   ///
   /// Returns wheter the callback was successfully removed.
-  @Deprecated("Use a custom LogOutput instead")
+  @Deprecated('Use a custom LogOutput instead')
   static void removeOutputListener(OutputCallback callback) {
     _outputCallbacks.remove(callback);
   }

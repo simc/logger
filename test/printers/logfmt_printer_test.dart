@@ -8,11 +8,11 @@ void main() {
     expect(
       printer.log(LogEvent(
         Level.debug,
-        "some message",
-        Exception("boom"),
+        'some message',
+        Exception('boom'),
         StackTrace.current,
       ))[0],
-      contains("level=debug"),
+      contains('level=debug'),
     );
   });
 
@@ -20,8 +20,8 @@ void main() {
     expect(
         printer.log(LogEvent(
           Level.debug,
-          "some message",
-          Exception("boom"),
+          'some message',
+          Exception('boom'),
           StackTrace.current,
         ))[0],
         contains('msg="some message"'));
@@ -31,14 +31,14 @@ void main() {
     var output = printer.log(LogEvent(
       Level.debug,
       {'a': 123, 'foo': 'bar baz'},
-      Exception("boom"),
+      Exception('boom'),
       StackTrace.current,
     ))[0];
 
-    expect(output, contains("a=123"));
+    expect(output, contains('a=123'));
     expect(output, contains('foo="bar baz"'));
   });
 
-  test('handles a stacktrace', () {}, skip: "TODO");
-  test('handles an error/exception', () {}, skip: "TODO");
+  test('handles a stacktrace', () {}, skip: 'TODO');
+  test('handles an error/exception', () {}, skip: 'TODO');
 }

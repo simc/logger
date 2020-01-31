@@ -3,7 +3,7 @@ class AnsiColor {
   static const ansiEsc = '\x1B[';
 
   /// Reset all colors and options for current SGRs to terminal defaults.
-  static const ansiDefault = "${ansiEsc}0m";
+  static const ansiDefault = '${ansiEsc}0m';
 
   final int fg;
   final int bg;
@@ -22,19 +22,20 @@ class AnsiColor {
       : fg = null,
         color = true;
 
+  @override
   String toString() {
     if (fg != null) {
-      return "${ansiEsc}38;5;${fg}m";
+      return '${ansiEsc}38;5;${fg}m';
     } else if (bg != null) {
-      return "${ansiEsc}48;5;${bg}m";
+      return '${ansiEsc}48;5;${bg}m';
     } else {
-      return "";
+      return '';
     }
   }
 
   String call(String msg) {
     if (color) {
-      return "${this}$msg$ansiDefault";
+      return '${this}$msg$ansiDefault';
     } else {
       return msg;
     }
@@ -45,10 +46,10 @@ class AnsiColor {
   AnsiColor toBg() => AnsiColor.bg(fg);
 
   /// Defaults the terminal's foreground color without altering the background.
-  String get resetForeground => color ? "${ansiEsc}39m" : "";
+  String get resetForeground => color ? '${ansiEsc}39m' : '';
 
   /// Defaults the terminal's background color without altering the foreground.
-  String get resetBackground => color ? "${ansiEsc}49m" : "";
+  String get resetBackground => color ? '${ansiEsc}49m' : '';
 
   static int grey(double level) => 232 + (level.clamp(0.0, 1.0) * 23).round();
 }
