@@ -47,9 +47,9 @@ class Logger {
   static Level level = Level.verbose;
 
   // NOTE: callbacks are soon to be removed
-  static final Set<LogCallback> _logCallbacks = Set();
+  static final Set<LogCallback> _logCallbacks = {};
   // NOTE: callbacks are soon to be removed
-  static final Set<OutputCallback> _outputCallbacks = Set();
+  static final Set<OutputCallback> _outputCallbacks = {};
 
   final LogFilter _filter;
   final LogPrinter _printer;
