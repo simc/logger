@@ -11,7 +11,7 @@ var loggerNoStack = Logger(
 
 void main() {
   print(
-      'Run with either `dart example/lib/main.dart` or `dart --enable-asserts example/lib/main.dart`.');
+      'Run with either `dart example/main.dart` or `dart --enable-asserts example/main.dart`.');
   demo();
 }
 
