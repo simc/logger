@@ -1,3 +1,8 @@
+## 0.9.0
+- Remove `OutputCallback` and `LogCallback`
+- Rename `SimplePrinter`s argument `useColor` to `colors`
+- Rename `DebugFilter` to `DevelopmentFilter`
+- 
 ## 0.8.3
 - Add LogfmtPrinter
 - Add colored output to SimplePrinter
