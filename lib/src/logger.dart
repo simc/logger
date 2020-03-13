@@ -1,4 +1,4 @@
-import 'package:logger/src/filters/debug_filter.dart';
+import 'package:logger/src/filters/development_filter.dart';
 import 'package:logger/src/printers/pretty_printer.dart';
 import 'package:logger/src/outputs/console_output.dart';
 import 'package:logger/src/log_filter.dart';
