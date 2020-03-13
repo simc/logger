@@ -54,14 +54,14 @@ class Logger {
   /// Create a new instance of Logger.
   ///
   /// You can provide a custom [printer], [filter] and [output]. Otherwise the
-  /// defaults: [PrettyPrinter], [DebugFilter] and [ConsoleOutput] will be
+  /// defaults: [PrettyPrinter], [DevelopmentFilter] and [ConsoleOutput] will be
   /// used.
   Logger({
     LogFilter filter,
     LogPrinter printer,
     LogOutput output,
     Level level,
-  })  : _filter = filter ?? DebugFilter(),
+  })  : _filter = filter ?? DevelopmentFilter(),
         _printer = printer ?? PrettyPrinter(),
         _output = output ?? ConsoleOutput() {
     _filter.init();
