@@ -6,7 +6,7 @@ const ansiEscapeLiteral = '\x1B';
 
 void main() {
   var event = LogEvent(
-    Level.debug,
+    Level.verbose,
     'some message',
     'some error',
     StackTrace.current,
@@ -20,7 +20,7 @@ void main() {
     var outputs = plainPrinter.log(event);
 
     expect(outputs, hasLength(1));
-    expect(outputs[0], '[D]  some message  ERROR: some error');
+    expect(outputs[0], '[V]  some message  ERROR: some error');
   });
 
   group('color', () {

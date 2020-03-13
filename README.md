@@ -90,6 +90,10 @@ var logger = Logger(
 ```
 
 
+You can try to auto detect if the attached terminal supports ANSI escape 
+characters by using the output of `io.stdout.supportsAnsiEscapes` as value for 
+the `colors` argument (assuming you have imported the `io` package with `import 'dart:io' as io;`).
+
 ## LogFilter
 
 The `LogFilter` decides which log events should be shown and which don't.<br>

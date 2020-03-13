@@ -1,13 +1,10 @@
 name: logger
 description: Small, easy to use and extensible logger which prints beautiful logs.
-version: 0.8.3
+version: 0.9.0
 homepage: https://github.com/leisim/logger
 
 environment:
   sdk: ">=2.2.0 <3.0.0"
-
-dependencies:
-  io: ^0.3.3
 
 dev_dependencies:
   test: any
