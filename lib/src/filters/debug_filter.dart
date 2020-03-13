@@ -1,11 +1,11 @@
 import 'package:logger/src/logger.dart';
 import 'package:logger/src/log_filter.dart';
 
-/// Default implementation of [LogFilter].
+/// Prints all logs with `level >= Logger.level` while in development mode (eg
+/// when `assert`s are evaluated, Flutter calls this debug mode).
 ///
-/// Prints all logs with `level >= Logger.level` while in debug mode. In release
-/// mode all logs are omitted.
-class DebugFilter extends LogFilter {
+/// In release mode ALL logs are omitted.
+class DevelopmentFilter extends LogFilter {
   @override
   bool shouldLog(LogEvent event) {
     var shouldLog = false;
