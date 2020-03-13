@@ -1,3 +1,4 @@
+/// This class handles colorizing of terminal output.
 class AnsiColor {
   /// ANSI Control Sequence Introducer, signals the terminal for new settings.
   static const ansiEsc = '\x1B[';
