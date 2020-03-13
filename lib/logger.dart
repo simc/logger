@@ -3,7 +3,7 @@ library logger;
 
 export 'src/ansi_color.dart';
 
-export 'src/filters/debug_filter.dart';
+export 'src/filters/development_filter.dart';
 export 'src/filters/production_filter.dart';
 
 export 'src/outputs/console_output.dart';
