@@ -27,10 +27,10 @@ class SimplePrinter extends LogPrinter {
     Level.wtf: AnsiColor.fg(199),
   };
 
-  bool printTime;
-  bool useColor;
+  final bool printTime;
+  final bool colors;
 
-  SimplePrinter({this.printTime = false, this.useColor = true});
+  SimplePrinter({this.printTime = false, this.colors = true});
 
   @override
   List<String> log(LogEvent event) {
@@ -44,7 +44,7 @@ class SimplePrinter extends LogPrinter {
     var prefix = levelPrefixes[level];
     var color = levelColors[level];
 
-    return useColor ? color(prefix) : prefix;
+    return colors ? color(prefix) : prefix;
   }
 
   String _stringifyMessage(dynamic message) {
