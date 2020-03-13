@@ -89,10 +89,15 @@ var logger = Logger(
 )
 ```
 
+### Auto detecting
 
-You can try to auto detect if the attached terminal supports ANSI escape 
-characters by using the output of `io.stdout.supportsAnsiEscapes` as value for 
-the `colors` argument (assuming you have imported the `io` package with `import 'dart:io' as io;`).
+With the `io` package you can auto detect the `lineLength` and `colors` arguments. 
+Assuming you have imported the `io` package with `import 'dart:io' as io;` you 
+can auto detect `colors` with `io.stdout.supportsAnsiEscapes` and `lineLength` 
+with `io.stdout.terminalColumns`.
+
+You should probably do this unless there's a good reason you don't want to 
+import `io`, for example when using this library on the web.
 
 ## LogFilter
 
@@ -128,6 +133,11 @@ class MyPrinter extends LogPrinter {
 
 If you created a cool `LogPrinter` which might be helpful to others, feel free to open a pull request. :)
 
+### Colors
+
+Please note that all IDEs (VSCode, XCode, Android Studio, IntelliJ) do not 
+support ANSI escape sequences in their terminal outputs. These escape sequences 
+are used to color output. If using such an IDE do not configure colored output.
 
 ## LogOutput
 
