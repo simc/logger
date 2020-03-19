@@ -52,6 +52,7 @@ class PrettyPrinter extends LogPrinter {
   final bool colors;
   final bool printEmojis;
   final bool printTime;
+  final bool isFlutterWeb;
 
   String _topBorder = '';
   String _middleBorder = '';
@@ -64,6 +65,7 @@ class PrettyPrinter extends LogPrinter {
     this.colors = true,
     this.printEmojis = true,
     this.printTime = false,
+    this.isFlutterWeb = false,
   }) {
     _startTime ??= DateTime.now();
 
@@ -86,7 +88,19 @@ class PrettyPrinter extends LogPrinter {
     String stackTraceStr;
     if (event.stackTrace == null) {
       if (methodCount > 0) {
-        stackTraceStr = formatStackTrace(StackTrace.current, methodCount);
+        var stackTrace = StackTrace.current;
+        if (isFlutterWeb) {
+          /// If isFlutterWeb is true when the stackTrace is null , then the below block will 
+          /// make sure that any browser related junk errors are not displayed
+          var lines = stackTrace.toString().trim().split('\n');
+          lines.removeWhere((stackItem) =>
+              stackItem.contains('package:dart-sdk') ||
+              stackItem.contains('package:flutter') ||
+              stackItem.contains('package:build_web_compilers') ||
+              stackItem.contains('package:logger'));
+          stackTrace = StackTrace.fromString(lines.join('\n'));
+        }
+        stackTraceStr = formatStackTrace(stackTrace, methodCount);
       }
     } else if (errorMethodCount > 0) {
       stackTraceStr = formatStackTrace(event.stackTrace, errorMethodCount);
@@ -194,13 +208,11 @@ class PrettyPrinter extends LogPrinter {
     }
   }
 
-  List<String> _formatAndPrint(
-    Level level,
-    String message,
-    String time,
-    String error,
-    String stacktrace,
-  ) {
+  List<String> _formatAndPrint(Level level,
+      String message,
+      String time,
+      String error,
+      String stacktrace,) {
     // This code is non trivial and a type annotation here helps understanding.
     // ignore: omit_local_variable_types
     List<String> buffer = [];
