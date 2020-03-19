@@ -84,7 +84,8 @@ var logger = Logger(
     lineLength: 120, // width of the output
     colors: true, // Colorful log messages
     printEmojis: true, // Print an emoji for each log message
-    printTime: false // Should each log print contain a timestamp
+    printTime: false , // Should each log print contain a timestamp
+    isFlutterWeb : false  // if this is true , it will avoid printing some extra stacktrace when flutter is run on browser platform
   ),
 )
 ```
