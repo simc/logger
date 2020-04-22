@@ -1,3 +1,6 @@
+## 0.9.1
+- Fix logging output for Flutter Web. Credits to @nateshmbhat and @Cocotus.
+
 ## 0.9.0
 - Remove `OutputCallback` and `LogCallback`
 - Rename `SimplePrinter`s argument `useColor` to `colors`
