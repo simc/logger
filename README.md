@@ -86,7 +86,7 @@ var logger = Logger(
     printEmojis: true, // Print an emoji for each log message
     printTime: false // Should each log print contain a timestamp
   ),
-)
+);
 ```
 
 ### Auto detecting
@@ -138,6 +138,17 @@ If you created a cool `LogPrinter` which might be helpful to others, feel free t
 Please note that all IDEs (VSCode, XCode, Android Studio, IntelliJ) do not 
 support ANSI escape sequences in their terminal outputs. These escape sequences 
 are used to color output. If using such an IDE do not configure colored output.
+
+However, if you are using a JetBrains IDE (Android Studio, IntelliJ, etc.) 
+you can make use of the [Grep Console Plugin](https://plugins.jetbrains.com/plugin/7125-grep-console)
+and the [`PrefixPrinter`](/lib/src/printers/prefix_printer.dart) 
+decorator to achieved colored logs for any logger:
+
+```dart
+var logger = Logger(
+  printer: PrefixPrinter(PrettyPrinter(colors: false))
+);
+```
 
 ## LogOutput
 
