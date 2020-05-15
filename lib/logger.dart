@@ -7,6 +7,7 @@ export 'src/filters/development_filter.dart';
 export 'src/filters/production_filter.dart';
 
 export 'src/outputs/console_output.dart';
+export 'src/outputs/file_output.dart';
 export 'src/outputs/stream_output.dart';
 export 'src/outputs/memory_output.dart';
 

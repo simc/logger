@@ -1,3 +1,6 @@
+## 0.9.2
+- Add missing export of `FileOutput`
+
 ## 0.9.1
 - Fix logging output for Flutter Web. Credits to @nateshmbhat and @Cocotus.
 
