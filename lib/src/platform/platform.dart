@@ -116,7 +116,7 @@ class LogPlatform {
     return allLines;
   }
 
-  static final int DEFAULT_METHOD_COUNT = isWeb ? 2 : 2 ;
+  static final int DEFAULT_METHOD_COUNT = isWeb ? 2 : 3 ;
   static final int DEFAULT_ERROR_METHOD_COUNT = isWeb ? 8 : 12 ;
   static final int DEFAULT_LINE_LENGTH = consoleColumns ;
   static final bool DEFAULT_USE_COLORS = consoleSupportsColors ;

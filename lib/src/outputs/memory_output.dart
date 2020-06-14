@@ -5,7 +5,7 @@ import 'package:logger/src/logger.dart';
 
 /// Buffers [OutputEvent]s.
 class MemoryOutput extends LogOutput {
-  /// Maximum elements in [buffer].
+  /// Maximum events in [buffer].
   final int bufferSize;
 
   /// A secondary [LogOutput] to also received events.

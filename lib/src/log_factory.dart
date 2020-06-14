@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:logger/logger.dart';
 
 /// A [Logger] factory.
@@ -49,8 +51,12 @@ class LoggerFactory {
       }
     }
 
-    var allOutputs = Set.from(outputs.where((e) => e != null));
+    // Ensure that order is preserved:
+    // ignore: prefer_collection_literals
+    var allOutputs = LinkedHashSet<LogOutput>() ;
+
     if (output != null) allOutputs.add(output);
+    allOutputs.addAll( outputs.where((e) => e != null) ) ;
 
     LogOutput theOutput;
 

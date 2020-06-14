@@ -201,6 +201,7 @@ class PrettyPrinter extends LogPrinterWithName {
   final Map<Level, Set<String>> _ignoredPackagesByLevel = {} ;
   final Set<String> _ignoredPackages = {} ;
 
+  /// Returns a list of ignored packages.
   List<String> get ignoredPackages {
     var l1 = _ignoredPackagesByLevel.values.expand((e) => e) ;
     var set = Set.from( l1 ) ;
@@ -208,11 +209,15 @@ class PrettyPrinter extends LogPrinterWithName {
     return List.from(set) ;
   }
 
+  /// Clears the ignored packages.
   void clearIgnoredPackages() {
     _ignoredPackagesByLevel.clear();
     _ignoredPackages.clear() ;
   }
 
+  /// Ignores a [package].
+  ///
+  /// [level] If provided will ignored only for this [Level].
   void ignorePackage(String package, [Level level]) {
     if (package == null) return ;
     package = package.trim() ;
@@ -227,6 +232,9 @@ class PrettyPrinter extends LogPrinterWithName {
     }
   }
 
+  /// Removes a [package] from ignore list.
+  ///
+  /// [level] If provided will remove it only if defined for this [Level].
   bool doNotIgnorePackage(String package, [Level level]) {
     if (package == null) return false;
     package = package.trim() ;

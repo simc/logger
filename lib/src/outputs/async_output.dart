@@ -68,7 +68,9 @@ class AsyncOutput extends LogOutput {
   /// Returns the amount of events sent to [mainOutput].
   ///
   /// You don't need to call directly this method, since internally it's
-  /// automatically scheduled. If you really want you can call it at any time.
+  /// automatically scheduled.
+  ///
+  /// If you really want, you can call this at any time.
   int flush() {
     var eventCount = 0;
 

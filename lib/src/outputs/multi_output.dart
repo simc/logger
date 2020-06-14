@@ -38,7 +38,13 @@ class MultiOutput extends LogOutput {
   @override
   void output(OutputEvent event) {
     for (var o in _outputs) {
-      o.output(event);
+      try {
+        o.output(event);
+      }
+      catch(e,s) {
+        print(e);
+        print(s);
+      }
     }
   }
 }
