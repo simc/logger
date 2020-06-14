@@ -40,7 +40,7 @@ void main() {
   test('print time', () {
     var printer = SimplePrinter(printTime: true);
 
-    expect(printer.log(event)[0], contains('TIME'));
+    expect(printer.log(event)[0], matches(RegExp(r'\d\d\d\d-\d\d-\d\dT')));
   });
 
   test('does not print time', () {

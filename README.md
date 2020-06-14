@@ -1,6 +1,11 @@
 # Logger
 
-[![Travis](https://img.shields.io/travis/com/leisim/logger/master.svg)](https://travis-ci.com/leisim/logger) [![Version](https://img.shields.io/pub/v/logger.svg)](https://pub.dev/packages/logger) ![Runtime](https://img.shields.io/badge/dart-%3E%3D2.1-brightgreen.svg) ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
+[![pub package](https://img.shields.io/pub/v/logger.svg?logo=dart&logoColor=00b9fc)](https://pub.dartlang.org/packages/logger)
+[![CI](https://img.shields.io/github/workflow/status/leisim/logger/Dart%20CI/master?logo=github-actions&logoColor=white)](https://github.com/leisim/logger/actions)
+[![Last Commits](https://img.shields.io/github/last-commit/leisim/logger?logo=git&logoColor=white)](https://github.com/leisim/logger/commits/master)
+[![Pull Requests](https://img.shields.io/github/issues-pr/leisim/logger?logo=github&logoColor=white)](https://github.com/leisim/logger/pulls)
+[![Code size](https://img.shields.io/github/languages/code-size/leisim/logger?logo=github&logoColor=white)](https://github.com/leisim/logger)
+[![License](https://img.shields.io/github/license/leisim/logger?logo=open-source-initiative&logoColor=green)](https://github.com/leisim/logger/blob/master/LICENSE)
 
 Small, easy to use and extensible logger which prints beautiful logs.<br>
 Inspired by [logger](https://github.com/orhanobut/logger) for Android.
@@ -79,6 +84,7 @@ If you use the `PrettyPrinter`, there are more options:
 ```dart
 var logger = Logger(
   printer: PrettyPrinter(
+    name: 'MyName', // name to use in events of this Logger.
     methodCount: 2, // number of method calls to be displayed
     errorMethodCount: 8, // number of method calls if stacktrace is provided
     lineLength: 120, // width of the output
@@ -89,15 +95,21 @@ var logger = Logger(
 );
 ```
 
-### Auto detecting
+### Auto Detecting Platform
 
-With the `io` package you can auto detect the `lineLength` and `colors` arguments. 
-Assuming you have imported the `io` package with `import 'dart:io' as io;` you 
-can auto detect `colors` with `io.stdout.supportsAnsiEscapes` and `lineLength` 
-with `io.stdout.terminalColumns`.
+The class `LogPlatform` tries to automatically identify `lineLength` and `colors`
+support for console output, depending on the detected platform (VM or Web).
 
-You should probably do this unless there's a good reason you don't want to 
-import `io`, for example when using this library on the web.
+If in VM platform it uses `dart:io`
+(`colors` with `io.stdout.supportsAnsiEscapes` and
+`lineLength` with `io.stdout.terminalColumns`).
+
+If you want to allow output in `stderr` (if present in the runtime platform),
+you should enable it:
+
+```dart
+  LogPlatform.enableSTDERR = true ;
+```
 
 ## LogFilter
 

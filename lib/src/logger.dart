@@ -17,6 +17,20 @@ enum Level {
   nothing,
 }
 
+
+const _levelsNames = {
+  Level.debug: 'DEBUG',
+  Level.verbose: 'VERBOSE',
+  Level.wtf: 'WTF',
+  Level.info: 'INFO',
+  Level.warning: 'WARNING',
+  Level.error: 'ERROR',
+};
+
+
+/// Returns the [Level] name in upper case.
+String getLevelName(Level level) => _levelsNames[level];
+
 class LogEvent {
   final Level level;
   final dynamic message;
@@ -31,6 +45,11 @@ class OutputEvent {
   final List<String> lines;
 
   OutputEvent(this.level, this.lines);
+
+  @override
+  String toString() {
+    return '[$level] ${ lines.join('\ ') }';
+  }
 }
 
 @Deprecated('Use a custom LogFilter instead')
@@ -116,7 +135,15 @@ class Logger {
 
       if (output.isNotEmpty) {
         var outputEvent = OutputEvent(level, output);
-        _output.output(outputEvent);
+        // Issues with log output should NOT influence
+        // the main software behavior.
+        try {
+          _output.output(outputEvent);
+        }
+        catch(e,s) {
+          print(e);
+          print(s);
+        }
       }
     }
   }

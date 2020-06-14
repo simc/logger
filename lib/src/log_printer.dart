@@ -16,3 +16,11 @@ abstract class LogPrinter {
 
   void destroy() {}
 }
+
+abstract class LogPrinterWithName extends LogPrinter {
+
+  String get name ;
+
+  LogPrinterWithName copy({String withName}) ;
+
+}
