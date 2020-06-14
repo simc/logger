@@ -15,13 +15,13 @@ class LogPlatform {
   static bool get isVM => isPlatformVMImpl();
 
   /// Returns [true] if the platform console supports colors.
-  static bool get consoleColors => getPlatformConsoleAcceptsColorsImpl();
+  static bool get consoleSupportsColors => getPlatformConsoleAcceptsColorsImpl();
 
   /// Returns console columns size.
   static int get consoleColumns => getPlatformConsoleColumnsImpl();
 
   /// Returns [true] if the console supports emoji.
-  static bool get consoleAcceptsEmoji => isPlatformWebImpl();
+  static bool get consoleSupportsEmoji => isPlatformWebImpl();
 
   static bool _enableSTDERR = false;
 
@@ -119,7 +119,7 @@ class LogPlatform {
   static final int DEFAULT_METHOD_COUNT = isWeb ? 2 : 2 ;
   static final int DEFAULT_ERROR_METHOD_COUNT = isWeb ? 8 : 12 ;
   static final int DEFAULT_LINE_LENGTH = consoleColumns ;
-  static final bool DEFAULT_USE_COLORS = consoleColors ;
-  static final bool DEFAULT_USE_EMOJI = consoleAcceptsEmoji ;
+  static final bool DEFAULT_USE_COLORS = consoleSupportsColors ;
+  static final bool DEFAULT_USE_EMOJI = consoleSupportsEmoji ;
 
 }
