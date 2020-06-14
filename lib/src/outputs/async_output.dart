@@ -85,10 +85,10 @@ class AsyncOutput extends LogOutput {
         eventCount++;
         break;
       } else {
-        init ??= DateTime.now().microsecondsSinceEpoch;
+        init ??= DateTime.now().millisecondsSinceEpoch;
         _mainOutput(event);
         eventCount++;
-        var elapsedTime = DateTime.now().microsecondsSinceEpoch - init;
+        var elapsedTime = DateTime.now().millisecondsSinceEpoch - init;
         if (elapsedTime > _maximumFlushTime) {
           break;
         }
