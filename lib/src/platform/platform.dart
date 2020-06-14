@@ -74,7 +74,7 @@ class LogPlatform {
     }
   }
 
-  /// Is some browsers, depending of the [ConsolePrinter] for some [level],
+  /// In some browsers, depending of the [ConsolePrinter] for some [level],
   /// the 1st line printed to the console is not vertically
   /// aligned (head indented) with the other lines.
   static bool isConsolePrinterHeadIndented(Level level) =>
