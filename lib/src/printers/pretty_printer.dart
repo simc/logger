@@ -54,7 +54,7 @@ class PrettyPrinter extends LogPrinterWithName {
   /// For example:
   /// packages/logger/src/printers/pretty_printer.dart 91:37
   static final _webStackTraceRegex =
-      RegExp(r'^(?:packages|dart-sdk)\/([^\s]+)');
+      RegExp(r'^(?:packages)?((?:dart-sdk)?\/[^\s]+)');
 
   static final _browserStackTraceRegex =
       RegExp(r'^(?:package:)?(dart:[^\s]+|[^\s]+)');
