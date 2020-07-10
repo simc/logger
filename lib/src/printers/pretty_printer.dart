@@ -238,12 +238,12 @@ class PrettyPrinter extends LogPrinterWithName {
   bool doNotIgnorePackage(String package, [Level level]) {
     if (package == null) return false;
     package = package.trim() ;
+    if (package.isEmpty) return false ;
 
     if (level != null) {
       var set = _ignoredPackagesByLevel[level] ;
       return set.remove(package) ;
-    }
-    else {
+    } else {
       var rm = _ignoredPackages.remove(package) ;
       for (var set in _ignoredPackagesByLevel.values) {
         if ( set.remove(package) ) {
