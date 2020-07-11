@@ -94,26 +94,21 @@ class LogPlatform {
     if (linesLength == 0) return '';
 
     // Tries to avoid new [String] allocations:
-    String allLines;
     if (linesLength == 1) {
-      allLines = lines[0];
-    } else {
-      var newLine = '\n';
-
-      // Ensure that head line is vertical aligned with other lines
-      // in the current console platform (if not, add a blank head line):
-      var buffer = StringBuffer(
-          LogPlatform.isConsolePrinterHeadIndented(level) ? newLine : '');
-
-      for (var i = 0; i < lines.length; i++) {
-        if (i > 0) buffer.write(newLine);
-        buffer.write(lines[i]);
-      }
-
-      allLines = buffer.toString();
+      return lines[0];
     }
-
-    return allLines;
+    // Ensure that head line is vertical aligned with other lines
+    // in the current console platform (if not, add a blank head line):
+    else if ( LogPlatform.isConsolePrinterHeadIndented(level) ) {
+      var buffer = StringBuffer();
+      for (var line in lines) {
+        buffer.write('\n');
+        buffer.write(line);
+      }
+      return buffer.toString();
+    } else {
+      return lines.join('\n') ;
+    }
   }
 
   static final int DEFAULT_METHOD_COUNT = isWeb ? 2 : 3;
