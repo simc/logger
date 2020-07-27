@@ -1,3 +1,7 @@
+## 0.9.2
+- Add `PrefixPrinter`. Credits to @tkutcher.
+- Add `HybridPrinter`. Credits to @tkutcher.
+ 
 ## 0.9.1
 - Fix logging output for Flutter Web. Credits to @nateshmbhat and @Cocotus.
 
