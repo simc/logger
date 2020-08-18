@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:logger/src/log_factory.dart';
 import 'package:test/test.dart';
 import 'package:logger/logger.dart';
 
@@ -168,16 +167,5 @@ void main() {
 
     logger.w('This is');
     expect(printedMessage, 'This is');
-  });
-
-  test('LoggerFactory', () {
-    var factory = LoggerFactory(printer: callbackPrinter, filter: _AlwaysFilter());
-    var logger = factory.get();
-    var stackTrace = StackTrace.current;
-    logger.w('Test', 'Error', stackTrace);
-    expect(printedLevel, Level.warning);
-    expect(printedMessage, 'Test');
-    expect(printedError, 'Error');
-    expect(printedStackTrace, stackTrace);
   });
 }

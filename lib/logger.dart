@@ -10,7 +10,6 @@ export 'src/outputs/console_output.dart';
 export 'src/outputs/stream_output.dart';
 export 'src/outputs/memory_output.dart';
 export 'src/outputs/multi_output.dart';
-export 'src/outputs/async_output.dart';
 
 export 'src/printers/pretty_printer.dart';
 export 'src/printers/logfmt_printer.dart';
@@ -26,6 +25,5 @@ export 'src/log_output.dart'
 export 'src/log_filter.dart';
 export 'src/log_output.dart';
 export 'src/log_printer.dart';
-export 'src/log_factory.dart';
 export 'src/logger.dart';
 
