@@ -29,7 +29,9 @@ Instead of a string message, you can also pass other objects like `List`, `Map` 
 
 ## Log Console
 
-If you are creating a Flutter app, you can use the [logger_flutter](#logger-flutter-extension) extension. Shake the phone to show an on device console. 
+If you are creating a Flutter app, you can use the [logger_flutter](https://pub.dev/packages/logger_flutter) extension.<br>
+Shake the phone or call `LogConsole.open(context)` from anywhere to show an on device console.<br>
+For more info, [click here](https://pub.dev/packages/logger_flutter).
 
 | ![](https://raw.githubusercontent.com/leisim/logger/master/art/log_console_light.png) | ![](https://raw.githubusercontent.com/leisim/logger/master/art/log_console_dark.png) |
 |---|---|
@@ -173,16 +175,6 @@ Possible future `LogOutput`s could send to a file, firebase or to Logcat. Feel f
 
 The [logger_flutter](https://pub.dev/packages/logger_flutter) package is an extension for logger. You can add it to any Flutter app. Just shake the phone to show the console.
 
-1. [Add logger_flutter](https://pub.dev/packages/logger_flutter#-installing-tab-) to your `pubspec.yaml`
-2. Add the following code into your widget tree
-
-```dart
-LogConsoleOnShake(
-  child: Container() // Your widgets
-),
-```
-
-More documentation coming soon.
 
 ## MIT License
 ```
