@@ -94,15 +94,20 @@ var logger = Logger(
 );
 ```
 
-### Auto detecting
+### Auto Detecting Platform
 
-With the `io` package you can auto detect the `lineLength` and `colors` arguments. 
-Assuming you have imported the `io` package with `import 'dart:io' as io;` you 
-can auto detect `colors` with `io.stdout.supportsAnsiEscapes` and `lineLength` 
-with `io.stdout.terminalColumns`.
+The class `LogPlatform` tries to automatically identify `lineLength` and `colors`
+support for console output, depending on the detected platform (VM or Web).
 
-You should probably do this unless there's a good reason you don't want to 
-import `io`, for example when using this library on the web.
+If in VM platform it uses `dart:io` (`colors` with `io.stdout.supportsAnsiEscapes`
+and `lineLength` with `io.stdout.terminalColumns`).
+
+If you want to allow output in `stderr` (if present in the runtime platform),
+you should enable it:
+
+```dart
+  LogPlatform.enableSTDERR = true ;
+```
 
 ## LogFilter
 

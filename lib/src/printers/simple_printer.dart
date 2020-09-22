@@ -1,8 +1,9 @@
 import 'dart:convert';
 
+import 'package:logger/src/ansi_color.dart';
 import 'package:logger/src/logger.dart';
 import 'package:logger/src/log_printer.dart';
-import 'package:logger/src/ansi_color.dart';
+import 'package:logger/src/platform/platform.dart';
 
 /// Outputs simple log messages:
 /// ```
@@ -30,7 +31,10 @@ class SimplePrinter extends LogPrinter {
   final bool printTime;
   final bool colors;
 
-  SimplePrinter({this.printTime = false, this.colors = true});
+  SimplePrinter({
+    this.printTime = false,
+    bool colors,
+  }) : colors = colors ?? LogPlatform.DEFAULT_USE_COLORS;
 
   @override
   List<String> log(LogEvent event) {
