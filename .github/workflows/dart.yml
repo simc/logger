@@ -18,9 +18,9 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install dependencies
       run: pub get
+    - name: Format code
+      run: dartfmt -n --set-exit-if-changed .
+    - name: Static analyze project
+      run: dartanalyzer --fatal-infos --fatal-warnings .
     - name: Run tests
       run: pub run test
-    - name: Format code
-      run: dartfmt
-    - name: Static analyze project
-      run: dartanalyzer . --options=analysis_options.yaml --fatal-infos
