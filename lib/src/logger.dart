@@ -116,7 +116,14 @@ class Logger {
 
       if (output.isNotEmpty) {
         var outputEvent = OutputEvent(level, output);
-        _output.output(outputEvent);
+        // Issues with log output should NOT influence
+        // the main software behavior.
+        try {
+          _output.output(outputEvent);
+        } catch (e, s) {
+          print(e);
+          print(s);
+        }
       }
     }
   }
