@@ -1,3 +1,12 @@
+## 0.9.2
+- New MultiOutput: allow multiple simultaneous outputs.
+- New LogPlatform: identifies the runtime platform, and it's capabilities.
+- ConsoleOutput: now merging multiple lines to one String to avoid multiple IO calls.
+- MemoryOutput: overrides `[]` operator for events buffer access.
+- SimplePrinter, PrettyPrinter, PrefixPrinter: added optional `name` property.
+- Logger.log(): `try` `catch` while sending events to output, to avoid `Logger` influence over the main software.
+- README.md: fixed and improved badges.
+
 ## 0.9.1
 - Fix logging output for Flutter Web. Credits to @nateshmbhat and @Cocotus.
 

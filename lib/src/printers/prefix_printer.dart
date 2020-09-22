@@ -11,12 +11,15 @@ import 'package:logger/src/log_printer.dart';
 ///
 /// Would prepend "DEBUG" to every line in a debug log. You can supply
 /// parameters for a custom message for a specific log level.
-class PrefixPrinter extends LogPrinter {
+class PrefixPrinter extends LogPrinterWithName {
   final LogPrinter _realPrinter;
+  @override
+  final String name;
   Map<Level, String> _prefixMap;
 
   PrefixPrinter(this._realPrinter,
-      {debug, verbose, wtf, info, warning, error}) {
+      {String name, debug, verbose, wtf, info, warning, error})
+      : name = (name ?? '').trim() {
     _prefixMap = {
       Level.debug: debug ?? 'DEBUG',
       Level.verbose: verbose ?? 'VERBOSE',
@@ -30,10 +33,32 @@ class PrefixPrinter extends LogPrinter {
     _prefixMap.forEach((k, v) => _prefixMap[k] = '${v.padLeft(len)} ');
   }
 
+  /// Copies this instance.
+  ///
+  /// [withName] If present will overwrite [name].
+  @override
+  PrefixPrinter copy({String withName}) {
+    if (withName == null || withName.isEmpty) {
+      withName = name;
+    }
+    var cp = PrefixPrinter(
+      _realPrinter,
+      name: withName,
+      debug: _prefixMap[Level.debug],
+      verbose: _prefixMap[Level.verbose],
+      wtf: _prefixMap[Level.wtf],
+      info: _prefixMap[Level.info],
+      warning: _prefixMap[Level.warning],
+      error: _prefixMap[Level.error],
+    );
+    return cp;
+  }
+
   @override
   List<String> log(LogEvent event) {
     var realLogs = _realPrinter.log(event);
-    return realLogs.map((s) => '${_prefixMap[event.level]}$s').toList();
+    var name = this.name.isNotEmpty ? '[${this.name}] ' : '';
+    return realLogs.map((s) => '${_prefixMap[event.level]}$name$s').toList();
   }
 
   int _longestPrefixLength() {

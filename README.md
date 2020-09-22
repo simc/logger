@@ -84,6 +84,7 @@ If you use the `PrettyPrinter`, there are more options:
 ```dart
 var logger = Logger(
   printer: PrettyPrinter(
+    name: 'MyName', // name to use in events of this Logger.
     methodCount: 2, // number of method calls to be displayed
     errorMethodCount: 8, // number of method calls if stacktrace is provided
     lineLength: 120, // width of the output
