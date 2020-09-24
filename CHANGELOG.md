@@ -1,3 +1,10 @@
+## 0.9.3
+- Add `MultiOutput`. Credits to @gmpassos.
+- Handle browser Dart stacktraces in PrettyPrinter. Credits to @gmpassos.
+- Add platform detection. Credits to @gmpassos.
+- Catch output exceptions. Credits to @gmpassos.
+- Several documentation fixes. Credits to @gmpassos.
+
 ## 0.9.2
 - Add `PrefixPrinter`. Credits to @tkutcher.
 - Add `HybridPrinter`. Credits to @tkutcher.
