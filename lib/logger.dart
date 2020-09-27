@@ -19,8 +19,7 @@ export 'src/printers/prefix_printer.dart';
 
 export 'src/platform/platform.dart';
 
-export 'src/log_output.dart'
-    if (dart.library.io) 'src/outputs/file_output.dart';
+export 'src/log_output.dart' if (dart.io) 'src/outputs/file_output.dart';
 
 export 'src/log_filter.dart';
 export 'src/log_output.dart';
