@@ -1,13 +1,12 @@
 import 'dart:convert';
 
-import 'package:logger/src/ansi_color.dart';
 import 'package:logger/src/logger.dart';
 import 'package:logger/src/log_printer.dart';
-import 'package:logger/src/platform/platform.dart';
+import 'package:logger/src/ansi_color.dart';
 
 /// Default implementation of [LogPrinter].
 ///
-/// Output looks like this:
+/// Outut looks like this:
 /// ```
 /// ┌──────────────────────────
 /// │ Error info
@@ -64,28 +63,11 @@ class PrettyPrinter extends LogPrinter {
 
   static DateTime _startTime;
 
-  /// Amount of [StackTrace] lines to show with message (non-error log).
-  /// Defaults to LogPlatform.DEFAULT_METHOD_COUNT.
   final int methodCount;
-
-  /// Amount of error [StackTrace] lines to show with message.
-  /// Defaults to LogPlatform.DEFAULT_ERROR_METHOD_COUNT.
   final int errorMethodCount;
-
-  /// Columns length to format log.
-  /// Defaults to LogPlatform.DEFAULT_LINE_LENGTH.
   final int lineLength;
-
-  /// If [true] uses colors for logging.
-  /// Defaults to LogPlatform.DEFAULT_USE_COLORS.
   final bool colors;
-
-  /// If [true] uses emojis to identify logging types.
-  /// Defaults to LogPlatform.DEFAULT_USE_EMOJI.
   final bool printEmojis;
-
-  /// If [true] shows a line with log event time.
-  /// Defaults to false.
   final bool printTime;
 
   String _topBorder = '';
@@ -93,23 +75,18 @@ class PrettyPrinter extends LogPrinter {
   String _bottomBorder = '';
 
   PrettyPrinter({
-    int methodCount,
-    int errorMethodCount,
-    int lineLength,
-    bool colors,
-    bool printEmojis,
+    this.methodCount = 2,
+    this.errorMethodCount = 8,
+    this.lineLength = 120,
+    this.colors = true,
+    this.printEmojis = true,
     this.printTime = false,
-  })  : methodCount = methodCount ?? LogPlatform.DEFAULT_METHOD_COUNT,
-        errorMethodCount =
-            errorMethodCount ?? LogPlatform.DEFAULT_ERROR_METHOD_COUNT,
-        lineLength = lineLength ?? LogPlatform.DEFAULT_LINE_LENGTH,
-        colors = colors ?? LogPlatform.DEFAULT_USE_COLORS,
-        printEmojis = printEmojis ?? LogPlatform.DEFAULT_USE_EMOJI {
+  }) {
     _startTime ??= DateTime.now();
 
     var doubleDividerLine = StringBuffer();
     var singleDividerLine = StringBuffer();
-    for (var i = 0; i < this.lineLength - 1; i++) {
+    for (var i = 0; i < lineLength - 1; i++) {
       doubleDividerLine.write(doubleDivider);
       singleDividerLine.write(singleDivider);
     }
