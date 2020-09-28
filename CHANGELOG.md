@@ -1,3 +1,6 @@
+## 0.9.4
+- Remove broken platform detection.
+
 ## 0.9.3
 - Add `MultiOutput`. Credits to @gmpassos.
 - Handle browser Dart stacktraces in PrettyPrinter. Credits to @gmpassos.
