@@ -26,4 +26,9 @@ class MultiOutput extends LogOutput {
   void output(OutputEvent event) {
     _outputs.forEach((o) => o.output(event));
   }
+
+  @override
+  void destroy() {
+    _outputs.forEach((o) => o.destroy());
+  }
 }
