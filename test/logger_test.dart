@@ -7,7 +7,7 @@ typedef PrinterCallback = List<String> Function(
   Level level,
   dynamic message,
   dynamic error,
-  StackTrace stackTrace,
+  StackTrace? stackTrace,
 );
 
 class _AlwaysFilter extends LogFilter {
@@ -37,10 +37,10 @@ class _CallbackPrinter extends LogPrinter {
 }
 
 void main() {
-  Level printedLevel;
+  Level? printedLevel;
   dynamic printedMessage;
   dynamic printedError;
-  StackTrace printedStackTrace;
+  StackTrace? printedStackTrace;
   var callbackPrinter = _CallbackPrinter((l, m, e, s) {
     printedLevel = l;
     printedMessage = m;

@@ -6,7 +6,7 @@ import 'package:logger/logger.dart';
 final realPrinter = SimplePrinter();
 
 class TestLogPrinter extends LogPrinter {
-  LogEvent latestEvent;
+  LogEvent? latestEvent;
   @override
   List<String> log(LogEvent event) {
     latestEvent = event;

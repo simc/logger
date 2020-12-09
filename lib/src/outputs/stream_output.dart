@@ -4,7 +4,7 @@ import 'package:logger/src/logger.dart';
 import 'package:logger/src/log_output.dart';
 
 class StreamOutput extends LogOutput {
-  StreamController<List<String>> _controller;
+  late StreamController<List<String>> _controller;
   bool _shouldForward = false;
 
   StreamOutput() {
