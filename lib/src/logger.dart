@@ -21,7 +21,7 @@ class LogEvent {
   final Level level;
   final dynamic message;
   final dynamic error;
-  final StackTrace stackTrace;
+  final StackTrace? stackTrace;
 
   LogEvent(this.level, this.message, this.error, this.stackTrace);
 }
@@ -57,10 +57,10 @@ class Logger {
   /// defaults: [PrettyPrinter], [DevelopmentFilter] and [ConsoleOutput] will be
   /// used.
   Logger({
-    LogFilter filter,
-    LogPrinter printer,
-    LogOutput output,
-    Level level,
+    LogFilter? filter,
+    LogPrinter? printer,
+    LogOutput? output,
+    Level? level,
   })  : _filter = filter ?? DevelopmentFilter(),
         _printer = printer ?? PrettyPrinter(),
         _output = output ?? ConsoleOutput() {
@@ -71,38 +71,38 @@ class Logger {
   }
 
   /// Log a message at level [Level.verbose].
-  void v(dynamic message, [dynamic error, StackTrace stackTrace]) {
+  void v(dynamic message, [dynamic error, StackTrace? stackTrace]) {
     log(Level.verbose, message, error, stackTrace);
   }
 
   /// Log a message at level [Level.debug].
-  void d(dynamic message, [dynamic error, StackTrace stackTrace]) {
+  void d(dynamic message, [dynamic error, StackTrace? stackTrace]) {
     log(Level.debug, message, error, stackTrace);
   }
 
   /// Log a message at level [Level.info].
-  void i(dynamic message, [dynamic error, StackTrace stackTrace]) {
+  void i(dynamic message, [dynamic error, StackTrace? stackTrace]) {
     log(Level.info, message, error, stackTrace);
   }
 
   /// Log a message at level [Level.warning].
-  void w(dynamic message, [dynamic error, StackTrace stackTrace]) {
+  void w(dynamic message, [dynamic error, StackTrace? stackTrace]) {
     log(Level.warning, message, error, stackTrace);
   }
 
   /// Log a message at level [Level.error].
-  void e(dynamic message, [dynamic error, StackTrace stackTrace]) {
+  void e(dynamic message, [dynamic error, StackTrace? stackTrace]) {
     log(Level.error, message, error, stackTrace);
   }
 
   /// Log a message at level [Level.wtf].
-  void wtf(dynamic message, [dynamic error, StackTrace stackTrace]) {
+  void wtf(dynamic message, [dynamic error, StackTrace? stackTrace]) {
     log(Level.wtf, message, error, stackTrace);
   }
 
   /// Log a message with [level].
   void log(Level level, dynamic message,
-      [dynamic error, StackTrace stackTrace]) {
+      [dynamic error, StackTrace? stackTrace]) {
     if (!_active) {
       throw ArgumentError('Logger has already been closed.');
     } else if (error != null && error is StackTrace) {

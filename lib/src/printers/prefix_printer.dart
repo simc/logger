@@ -13,7 +13,7 @@ import 'package:logger/src/log_printer.dart';
 /// parameters for a custom message for a specific log level.
 class PrefixPrinter extends LogPrinter {
   final LogPrinter _realPrinter;
-  Map<Level, String> _prefixMap;
+  late Map<Level, String> _prefixMap;
 
   PrefixPrinter(this._realPrinter,
       {debug, verbose, wtf, info, warning, error}) {

@@ -41,8 +41,8 @@ class SimplePrinter extends LogPrinter {
   }
 
   String _labelFor(Level level) {
-    var prefix = levelPrefixes[level];
-    var color = levelColors[level];
+    var prefix = levelPrefixes[level]!;
+    var color = levelColors[level]!;
 
     return colors ? color(prefix) : prefix;
   }
