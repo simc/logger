@@ -1,3 +1,6 @@
+## 1.0.0-nullsafety.0
+- Convert to nullsafety. Credits to @DevNico
+
 ## 0.9.4
 - Remove broken platform detection.
 
