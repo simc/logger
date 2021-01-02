@@ -133,7 +133,7 @@ class PrettyPrinter extends LogPrinter {
       if (_discardDeviceStacktraceLine(line) ||
           _discardWebStacktraceLine(line) ||
           _discardBrowserStacktraceLine(line) ||
-         line.isEmpty) {
+          line.isEmpty) {
         continue;
       }
       formatted.add('#$count   ${line.replaceFirst(RegExp(r'#\d+\s+'), '')}');
