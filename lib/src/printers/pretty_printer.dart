@@ -133,7 +133,7 @@ class PrettyPrinter extends LogPrinter {
 
   String? formatStackTrace(StackTrace? stackTrace, int methodCount) {
     var lines = stackTrace.toString().split('\n');
-    if (stackTraceBeginIndex > 0) {
+    if (stackTraceBeginIndex > 0 && stackTraceBeginIndex < lines.length - 1) {
       lines = lines.sublist(stackTraceBeginIndex);
     }
     var formatted = <String>[];
