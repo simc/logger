@@ -63,6 +63,11 @@ class PrettyPrinter extends LogPrinter {
 
   static DateTime? _startTime;
 
+  /// The index which to begin the stack trace at
+  ///
+  /// This can be useful if, for instance, Logger is wrapped in another class and
+  /// you wish to remove these wrapped calls from stack trace
+  final int stackTraceBeginIndex;
   final int methodCount;
   final int errorMethodCount;
   final int lineLength;
@@ -75,6 +80,7 @@ class PrettyPrinter extends LogPrinter {
   String _bottomBorder = '';
 
   PrettyPrinter({
+    this.stackTraceBeginIndex = 0,
     this.methodCount = 2,
     this.errorMethodCount = 8,
     this.lineLength = 120,
@@ -127,6 +133,9 @@ class PrettyPrinter extends LogPrinter {
 
   String? formatStackTrace(StackTrace? stackTrace, int methodCount) {
     var lines = stackTrace.toString().split('\n');
+    if (stackTraceBeginIndex > 0) {
+      lines = lines.sublist(stackTraceBeginIndex);
+    }
     var formatted = <String>[];
     var count = 0;
     for (var line in lines) {
