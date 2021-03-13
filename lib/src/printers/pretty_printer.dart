@@ -74,10 +74,12 @@ class PrettyPrinter extends LogPrinter {
   final bool colors;
   final bool printEmojis;
   final bool printTime;
+  final bool printBox;
 
   String _topBorder = '';
   String _middleBorder = '';
   String _bottomBorder = '';
+  String _optionalVerticalLineSpace = '';
 
   PrettyPrinter({
     this.stackTraceBeginIndex = 0,
@@ -87,6 +89,7 @@ class PrettyPrinter extends LogPrinter {
     this.colors = true,
     this.printEmojis = true,
     this.printTime = false,
+    this.printBox = true,
   }) {
     _startTime ??= DateTime.now();
 
@@ -100,6 +103,12 @@ class PrettyPrinter extends LogPrinter {
     _topBorder = '$topLeftCorner$doubleDividerLine';
     _middleBorder = '$middleCorner$singleDividerLine';
     _bottomBorder = '$bottomLeftCorner$doubleDividerLine';
+
+    if (printBox) {
+      _optionalVerticalLineSpace = '$verticalLine ';
+    } else {
+      _optionalVerticalLineSpace = '';
+    }
   }
 
   @override
@@ -253,37 +262,39 @@ class PrettyPrinter extends LogPrinter {
     // ignore: omit_local_variable_types
     List<String> buffer = [];
     var color = _getLevelColor(level);
-    buffer.add(color(_topBorder));
+    if (printBox)  buffer.add(color(_topBorder));
 
     if (error != null) {
       var errorColor = _getErrorColor(level);
       for (var line in error.split('\n')) {
         buffer.add(
-          color('$verticalLine ') +
+          color('$_optionalVerticalLineSpace') +
               errorColor.resetForeground +
               errorColor(line) +
               errorColor.resetBackground,
         );
       }
-      buffer.add(color(_middleBorder));
+      if (printBox) buffer.add(color(_middleBorder));
     }
 
     if (stacktrace != null) {
       for (var line in stacktrace.split('\n')) {
-        buffer.add('$color$verticalLine $line');
+        buffer.add('$color$_optionalVerticalLineSpace$line');
       }
-      buffer.add(color(_middleBorder));
+      if (printBox) buffer.add(color(_middleBorder));
     }
 
     if (time != null) {
-      buffer..add(color('$verticalLine $time'))..add(color(_middleBorder));
+      buffer.add(color('$_optionalVerticalLineSpace$time'));
+      
+      if (printBox) buffer.add(color(_middleBorder));
     }
 
     var emoji = _getEmoji(level);
     for (var line in message.split('\n')) {
-      buffer.add(color('$verticalLine $emoji$line'));
+      buffer.add(color('$_optionalVerticalLineSpace$emoji$line'));
     }
-    buffer.add(color(_bottomBorder));
+    if (printBox) buffer.add(color(_bottomBorder));
 
     return buffer;
   }
