@@ -28,6 +28,7 @@ class FileOutput extends LogOutput {
   @override
   void output(OutputEvent event) {
     _sink?.writeAll(event.lines, '\n');
+    _sink?.write('\n');   // Add final line terminator
   }
 
   @override
