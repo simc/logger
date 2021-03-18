@@ -1,3 +1,6 @@
+## 1.0.0
+- Stable nullsafety
+
 ## 1.0.0-nullsafety.0
 - Convert to nullsafety. Credits to @DevNico
 
