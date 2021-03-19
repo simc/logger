@@ -270,7 +270,7 @@ class PrettyPrinter extends LogPrinter {
 
     if (stacktrace != null) {
       for (var line in stacktrace.split('\n')) {
-        buffer.add('$color$verticalLine $line');
+        buffer.add(color('$verticalLine $line'));
       }
       buffer.add(color(_middleBorder));
     }
