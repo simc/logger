@@ -225,9 +225,14 @@ class PrettyPrinter extends LogPrinter {
     return '$h:$min:$sec.$ms (+$timeSinceStart)';
   }
 
+  // Handles any object that is causing JsonEncoder() problems
+  Object toEncodableFallback(dynamic object) {
+    return object.toString();
+  }
+
   String stringifyMessage(dynamic message) {
     if (message is Map || message is Iterable) {
-      var encoder = JsonEncoder.withIndent('  ');
+      var encoder = JsonEncoder.withIndent('  ', toEncodableFallback);
       return encoder.convert(message);
     } else {
       return message.toString();
