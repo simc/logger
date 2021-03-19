@@ -75,6 +75,16 @@ class PrettyPrinter extends LogPrinter {
   final bool printEmojis;
   final bool printTime;
 
+  /// To prevent ascii 'boxing' of any log [Level] include the level in map for excludeBox,
+  /// for example to prevent boxing of [Level.verbose] and [Level.info] use excludeBox:{Level.verbose:true, Level.info:true}
+  final Map<Level, bool> excludeBox;
+
+  /// To make the default for every level to prevent boxing entirely set [noBoxing] to true
+  /// (boxing can still be turned on for some levels by using something like excludeBox:{Level.error:false} )
+  final bool noBoxingByDefault;
+
+  late final Map<Level, bool> includeBox;
+
   String _topBorder = '';
   String _middleBorder = '';
   String _bottomBorder = '';
@@ -87,6 +97,8 @@ class PrettyPrinter extends LogPrinter {
     this.colors = true,
     this.printEmojis = true,
     this.printTime = false,
+    this.excludeBox = const {},
+    this.noBoxingByDefault = false,
   }) {
     _startTime ??= DateTime.now();
 
@@ -100,6 +112,14 @@ class PrettyPrinter extends LogPrinter {
     _topBorder = '$topLeftCorner$doubleDividerLine';
     _middleBorder = '$middleCorner$singleDividerLine';
     _bottomBorder = '$bottomLeftCorner$doubleDividerLine';
+
+    // Translate excludeBox map (constant if default) to includeBox map with all Level enum possibilities
+    includeBox = {};
+    for (var levelEnum in Level.values) {
+      includeBox[levelEnum] = excludeBox.containsKey(levelEnum)
+          ? !excludeBox[levelEnum]!
+          : !noBoxingByDefault;
+    }
   }
 
   @override
@@ -252,38 +272,40 @@ class PrettyPrinter extends LogPrinter {
     // This code is non trivial and a type annotation here helps understanding.
     // ignore: omit_local_variable_types
     List<String> buffer = [];
+    var verticalLineAtLevel = (includeBox[level]!) ? (verticalLine + ' ') : '';
     var color = _getLevelColor(level);
-    buffer.add(color(_topBorder));
+    if (includeBox[level]!) buffer.add(color(_topBorder));
 
     if (error != null) {
       var errorColor = _getErrorColor(level);
       for (var line in error.split('\n')) {
         buffer.add(
-          color('$verticalLine ') +
+          color(verticalLineAtLevel) +
               errorColor.resetForeground +
               errorColor(line) +
               errorColor.resetBackground,
         );
       }
-      buffer.add(color(_middleBorder));
+      if (includeBox[level]!) buffer.add(color(_middleBorder));
     }
 
     if (stacktrace != null) {
       for (var line in stacktrace.split('\n')) {
-        buffer.add(color('$verticalLine $line'));
+        buffer.add(color('$verticalLineAtLevel$line'));
       }
-      buffer.add(color(_middleBorder));
+      if (includeBox[level]!) buffer.add(color(_middleBorder));
     }
 
     if (time != null) {
-      buffer..add(color('$verticalLine $time'))..add(color(_middleBorder));
+      buffer.add(color('$verticalLineAtLevel$time'));
+      if (includeBox[level]!) buffer.add(color(_middleBorder));
     }
 
     var emoji = _getEmoji(level);
     for (var line in message.split('\n')) {
-      buffer.add(color('$verticalLine $emoji$line'));
+      buffer.add(color('$verticalLineAtLevel$emoji$line'));
     }
-    buffer.add(color(_bottomBorder));
+    if (includeBox[level]!) buffer.add(color(_bottomBorder));
 
     return buffer;
   }
