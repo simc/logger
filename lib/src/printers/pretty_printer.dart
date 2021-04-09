@@ -79,7 +79,7 @@ class PrettyPrinter extends LogPrinter {
   /// for example to prevent boxing of [Level.verbose] and [Level.info] use excludeBox:{Level.verbose:true, Level.info:true}
   final Map<Level, bool> excludeBox;
 
-  /// To make the default for every level to prevent boxing entirely set [noBoxing] to true
+  /// To make the default for every level to prevent boxing entirely set [noBoxingByDefault] to true
   /// (boxing can still be turned on for some levels by using something like excludeBox:{Level.error:false} )
   final bool noBoxingByDefault;
 
@@ -115,11 +115,8 @@ class PrettyPrinter extends LogPrinter {
 
     // Translate excludeBox map (constant if default) to includeBox map with all Level enum possibilities
     includeBox = {};
-    for (var levelEnum in Level.values) {
-      includeBox[levelEnum] = excludeBox.containsKey(levelEnum)
-          ? !excludeBox[levelEnum]!
-          : !noBoxingByDefault;
-    }
+    Level.values.forEach((l) => includeBox[l] = !noBoxingByDefault);
+    excludeBox.forEach((k, v) => includeBox[k] = !v);
   }
 
   @override
