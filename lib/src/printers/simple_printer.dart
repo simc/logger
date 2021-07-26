@@ -37,7 +37,8 @@ class SimplePrinter extends LogPrinter {
     var messageStr = _stringifyMessage(event.message);
     var errorStr = event.error != null ? '  ERROR: ${event.error}' : '';
     var timeStr = printTime ? 'TIME: ${DateTime.now().toIso8601String()}' : '';
-    return ['${_labelFor(event.level)} $timeStr $messageStr$errorStr'];
+    var logTAG = event.tag != null ? 'TAG:${event.tag}' : '';
+    return ['${_labelFor(event.level)} $logTAG $timeStr $messageStr$errorStr'];
   }
 
   String _labelFor(Level level) {

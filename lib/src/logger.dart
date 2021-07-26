@@ -22,8 +22,9 @@ class LogEvent {
   final dynamic message;
   final dynamic error;
   final StackTrace? stackTrace;
+  final String? tag;
 
-  LogEvent(this.level, this.message, this.error, this.stackTrace);
+  LogEvent(this.level, this.message, this.error, this.stackTrace, this.tag);
 }
 
 class OutputEvent {
@@ -71,38 +72,38 @@ class Logger {
   }
 
   /// Log a message at level [Level.verbose].
-  void v(dynamic message, [dynamic error, StackTrace? stackTrace]) {
-    log(Level.verbose, message, error, stackTrace);
+  void v({required dynamic message, dynamic error, StackTrace? stackTrace, String? tag}) {
+    log(Level.verbose, message, error, stackTrace, tag);
   }
 
   /// Log a message at level [Level.debug].
-  void d(dynamic message, [dynamic error, StackTrace? stackTrace]) {
-    log(Level.debug, message, error, stackTrace);
+  void d({required dynamic message, dynamic error, StackTrace? stackTrace, String? tag}) {
+    log(Level.debug, message, error, stackTrace, tag);
   }
 
   /// Log a message at level [Level.info].
-  void i(dynamic message, [dynamic error, StackTrace? stackTrace]) {
-    log(Level.info, message, error, stackTrace);
+  void i({required dynamic message, dynamic error, StackTrace? stackTrace, String? tag}) {
+    log(Level.info, message, error, stackTrace, tag);
   }
 
   /// Log a message at level [Level.warning].
-  void w(dynamic message, [dynamic error, StackTrace? stackTrace]) {
-    log(Level.warning, message, error, stackTrace);
+  void w({required message, dynamic error, StackTrace? stackTrace, String? tag}) {
+    log(Level.warning, message, error, stackTrace, tag);
   }
 
   /// Log a message at level [Level.error].
-  void e(dynamic message, [dynamic error, StackTrace? stackTrace]) {
-    log(Level.error, message, error, stackTrace);
+  void e({required dynamic message, dynamic error, StackTrace? stackTrace, String? tag}) {
+    log(Level.error, message, error, stackTrace, tag);
   }
 
   /// Log a message at level [Level.wtf].
-  void wtf(dynamic message, [dynamic error, StackTrace? stackTrace]) {
-    log(Level.wtf, message, error, stackTrace);
+  void wtf({required dynamic message, dynamic error, StackTrace? stackTrace, String? tag}) {
+    log(Level.wtf, message, error, stackTrace, tag);
   }
 
   /// Log a message with [level].
   void log(Level level, dynamic message,
-      [dynamic error, StackTrace? stackTrace]) {
+      [dynamic error, StackTrace? stackTrace, String? tag]) {
     if (!_active) {
       throw ArgumentError('Logger has already been closed.');
     } else if (error != null && error is StackTrace) {
@@ -110,7 +111,7 @@ class Logger {
     } else if (level == Level.nothing) {
       throw ArgumentError('Log events cannot have Level.nothing');
     }
-    var logEvent = LogEvent(level, message, error, stackTrace);
+    var logEvent = LogEvent(level, message, error, stackTrace, tag);
     if (_filter.shouldLog(logEvent)) {
       var output = _printer.log(logEvent);
 

@@ -8,6 +8,7 @@ typedef PrinterCallback = List<String> Function(
   dynamic message,
   dynamic error,
   StackTrace? stackTrace,
+  String? tag,
 );
 
 class _AlwaysFilter extends LogFilter {
@@ -32,6 +33,7 @@ class _CallbackPrinter extends LogPrinter {
       event.message,
       event.error,
       event.stackTrace,
+      event.tag,
     );
   }
 }
@@ -41,11 +43,13 @@ void main() {
   dynamic printedMessage;
   dynamic printedError;
   StackTrace? printedStackTrace;
-  var callbackPrinter = _CallbackPrinter((l, m, e, s) {
+  String? printTag;
+  var callbackPrinter = _CallbackPrinter((l, m, e, s,t) {
     printedLevel = l;
     printedMessage = m;
     printedError = e;
     printedStackTrace = s;
+    printTag = t;
     return [];
   });
 
@@ -97,61 +101,67 @@ void main() {
   test('Logger.v', () {
     var logger = Logger(filter: _AlwaysFilter(), printer: callbackPrinter);
     var stackTrace = StackTrace.current;
-    logger.v('Test', 'Error', stackTrace);
+    logger.v(message: 'Test', error: 'Error', stackTrace: stackTrace, tag: 'LogV');
     expect(printedLevel, Level.verbose);
     expect(printedMessage, 'Test');
     expect(printedError, 'Error');
     expect(printedStackTrace, stackTrace);
+    expect(printTag, 'LogV');
   });
 
   test('Logger.d', () {
     var logger = Logger(filter: _AlwaysFilter(), printer: callbackPrinter);
     var stackTrace = StackTrace.current;
-    logger.d('Test', 'Error', stackTrace);
+    logger.d(message: 'Test', error: 'Error', stackTrace:stackTrace, tag: 'LogD');
     expect(printedLevel, Level.debug);
     expect(printedMessage, 'Test');
     expect(printedError, 'Error');
     expect(printedStackTrace, stackTrace);
+    expect(printTag, 'LogD');
   });
 
   test('Logger.i', () {
     var logger = Logger(filter: _AlwaysFilter(), printer: callbackPrinter);
     var stackTrace = StackTrace.current;
-    logger.i('Test', 'Error', stackTrace);
+    logger.i(message: 'Test', error: 'Error', stackTrace: stackTrace, tag: 'LogI');
     expect(printedLevel, Level.info);
     expect(printedMessage, 'Test');
     expect(printedError, 'Error');
     expect(printedStackTrace, stackTrace);
+    expect(printTag, 'LogI');
   });
 
   test('Logger.w', () {
     var logger = Logger(filter: _AlwaysFilter(), printer: callbackPrinter);
     var stackTrace = StackTrace.current;
-    logger.w('Test', 'Error', stackTrace);
+    logger.w(message: 'Test', error: 'Error', stackTrace: stackTrace, tag: 'LogW');
     expect(printedLevel, Level.warning);
     expect(printedMessage, 'Test');
     expect(printedError, 'Error');
     expect(printedStackTrace, stackTrace);
+    expect(printTag, 'LogW');
   });
 
   test('Logger.e', () {
     var logger = Logger(filter: _AlwaysFilter(), printer: callbackPrinter);
     var stackTrace = StackTrace.current;
-    logger.e('Test', 'Error', stackTrace);
+    logger.e(message: 'Test', error: 'Error', stackTrace: stackTrace,tag: 'LogE');
     expect(printedLevel, Level.error);
     expect(printedMessage, 'Test');
     expect(printedError, 'Error');
     expect(printedStackTrace, stackTrace);
+    expect(printTag, 'LogE');
   });
 
   test('Logger.wtf', () {
     var logger = Logger(filter: _AlwaysFilter(), printer: callbackPrinter);
     var stackTrace = StackTrace.current;
-    logger.wtf('Test', 'Error', stackTrace);
+    logger.wtf(message: 'Test', error: 'Error', stackTrace: stackTrace, tag: 'LogWTF');
     expect(printedLevel, Level.wtf);
     expect(printedMessage, 'Test');
     expect(printedError, 'Error');
     expect(printedStackTrace, stackTrace);
+    expect(printTag, 'LogWTF');
   });
 
   test('setting log level above log level of message', () {
@@ -162,10 +172,10 @@ void main() {
       level: Level.warning,
     );
 
-    logger.d('This isn\'t logged');
+    logger.d(message: 'This isn\'t logged');
     expect(printedMessage, isNull);
 
-    logger.w('This is');
+    logger.w(message: 'This is');
     expect(printedMessage, 'This is');
   });
 }

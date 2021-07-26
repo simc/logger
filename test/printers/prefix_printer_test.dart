@@ -4,14 +4,14 @@ import 'package:test/test.dart';
 import 'package:logger/logger.dart';
 
 void main() {
-  var debugEvent = LogEvent(Level.debug, 'debug', 'blah', StackTrace.current);
-  var infoEvent = LogEvent(Level.info, 'info', 'blah', StackTrace.current);
+  var debugEvent = LogEvent(Level.debug, 'debug', 'blah', StackTrace.current, 'tag');
+  var infoEvent = LogEvent(Level.info, 'info', 'blah', StackTrace.current, 'tag');
   var warningEvent =
-      LogEvent(Level.warning, 'warning', 'blah', StackTrace.current);
-  var errorEvent = LogEvent(Level.error, 'debug', 'blah', StackTrace.current);
+      LogEvent(Level.warning, 'warning', 'blah', StackTrace.current, 'tag');
+  var errorEvent = LogEvent(Level.error, 'debug', 'blah', StackTrace.current,'tag');
   var verboseEvent =
-      LogEvent(Level.verbose, 'debug', 'blah', StackTrace.current);
-  var wtfEvent = LogEvent(Level.wtf, 'debug', 'blah', StackTrace.current);
+      LogEvent(Level.verbose, 'debug', 'blah', StackTrace.current, 'tag');
+  var wtfEvent = LogEvent(Level.wtf, 'debug', 'blah', StackTrace.current, 'tag');
 
   var allEvents = [
     debugEvent,

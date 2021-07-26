@@ -10,6 +10,7 @@ void main() {
     'some message',
     'some error',
     StackTrace.current,
+    'tag',
   );
 
   var plainPrinter = SimplePrinter(colors: false, printTime: false);
@@ -55,6 +56,7 @@ void main() {
       'some message',
       null,
       StackTrace.current,
+      'tag',
     );
     var outputs = SimplePrinter().log(withoutError);
 
@@ -67,6 +69,7 @@ void main() {
       {'foo': 123},
       'some error',
       StackTrace.current,
+      'tag',
     );
 
     expect(
@@ -81,6 +84,7 @@ void main() {
       [1, 2, 3, 4],
       'some error',
       StackTrace.current,
+      'tag',
     );
 
     expect(

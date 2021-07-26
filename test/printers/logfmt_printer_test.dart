@@ -11,6 +11,7 @@ void main() {
         'some message',
         Exception('boom'),
         StackTrace.current,
+        'tag',
       ))[0],
       contains('level=debug'),
     );
@@ -23,6 +24,7 @@ void main() {
           'some message',
           Exception('boom'),
           StackTrace.current,
+          'tag'
         ))[0],
         contains('msg="some message"'));
   });
@@ -33,6 +35,7 @@ void main() {
       {'a': 123, 'foo': 'bar baz'},
       Exception('boom'),
       StackTrace.current,
+      'tag',
     ))[0];
 
     expect(output, contains('a=123'));
