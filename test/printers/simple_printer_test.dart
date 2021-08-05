@@ -88,4 +88,19 @@ void main() {
       '[D]  [1,2,3,4]  ERROR: some error',
     );
   });
+
+  test('deal with Function type message', () {
+    var expectedMessage = 'heavily computed Message';
+    var withFunction = LogEvent(
+      Level.debug,
+      () => expectedMessage,
+      'some error',
+      StackTrace.current,
+    );
+
+    expect(
+      plainPrinter.log(withFunction)[0],
+      '[D]  $expectedMessage  ERROR: some error',
+    );
+  });
 }
