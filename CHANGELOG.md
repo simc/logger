@@ -1,3 +1,8 @@
+## 1.1.0
+- Enhance boxing control with PrettyPrinter. Credits to @timmaffett
+- Add trailing new line to FileOutput. Credits to @narumishi
+- Add functions as a log message. Credits to @smotastic
+
 ## 1.0.0
 - Stable nullsafety
 

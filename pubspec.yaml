@@ -1,6 +1,6 @@
 name: logger
 description: Small, easy to use and extensible logger which prints beautiful logs.
-version: 1.0.0
+version: 1.1.0
 homepage: https://github.com/leisim/logger
 
 environment:
