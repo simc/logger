@@ -32,15 +32,6 @@ Instead of a string message, you can also pass other objects like `List`, `Map` 
 
 ![](https://raw.githubusercontent.com/leisim/logger/master/art/screenshot.png)
 
-## Log Console
-
-If you are creating a Flutter app, you can use the [logger_flutter](https://pub.dev/packages/logger_flutter) extension.<br>
-Shake the phone or call `LogConsole.open(context)` from anywhere to show an on device console.<br>
-For more info, [click here](https://pub.dev/packages/logger_flutter).
-
-| ![](https://raw.githubusercontent.com/leisim/logger/master/art/log_console_light.png) | ![](https://raw.githubusercontent.com/leisim/logger/master/art/log_console_dark.png) |
-|---|---|
-
 # Documentation
 
 ## Log level
