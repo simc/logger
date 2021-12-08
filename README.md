@@ -152,7 +152,7 @@ var logger = Logger(
 );
 ```
 
-For VSCode you can use `log()` from `dart:developer`, see [example](https://github.com/YehudaKremer/msix/blob/main/documentation/configuration.md).
+For VSCode you can use `log()` from `dart:developer`, see [example](https://github.com/leisim/logger/blob/master/example/ColorizedLoggingInVsCode.dart).
 
 ## LogOutput
 
