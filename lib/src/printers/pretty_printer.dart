@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:logger/src/logger.dart';
-import 'package:logger/src/log_printer.dart';
 import 'package:logger/src/ansi_color.dart';
+import 'package:logger/src/log_printer.dart';
+import 'package:logger/src/logger.dart';
 
 /// Default implementation of [LogPrinter].
 ///
@@ -74,6 +74,7 @@ class PrettyPrinter extends LogPrinter {
   final bool colors;
   final bool printEmojis;
   final bool printTime;
+  final List<RegExp> stacktraceFilters;
 
   /// To prevent ascii 'boxing' of any log [Level] include the level in map for excludeBox,
   /// for example to prevent boxing of [Level.verbose] and [Level.info] use excludeBox:{Level.verbose:true, Level.info:true}
@@ -99,6 +100,7 @@ class PrettyPrinter extends LogPrinter {
     this.printTime = false,
     this.excludeBox = const {},
     this.noBoxingByDefault = false,
+    this.stacktraceFilters = const [],
   }) {
     _startTime ??= DateTime.now();
 
@@ -159,6 +161,7 @@ class PrettyPrinter extends LogPrinter {
       if (_discardDeviceStacktraceLine(line) ||
           _discardWebStacktraceLine(line) ||
           _discardBrowserStacktraceLine(line) ||
+          _discardUserStacktraceLine(line) ||
           line.isEmpty) {
         continue;
       }
@@ -200,6 +203,9 @@ class PrettyPrinter extends LogPrinter {
     return match.group(1)!.startsWith('package:logger') ||
         match.group(1)!.startsWith('dart:');
   }
+
+  bool _discardUserStacktraceLine(String line) =>
+      stacktraceFilters.any((element) => element.hasMatch(line));
 
   String getTime() {
     String _threeDigits(int n) {
