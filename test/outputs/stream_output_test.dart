@@ -9,19 +9,19 @@ void main() {
       expect(e, ['hi there']);
     });
 
-    out.output(OutputEvent(Level.debug, ['hi there']));
+    out.output(OutputEvent(level: Level.debug, lines: ['hi there']));
   });
 
   test('respects listen', () {
     var out = StreamOutput();
 
-    out.output(OutputEvent(Level.debug, ['dropped']));
+    out.output(OutputEvent(level: Level.debug, lines: ['dropped']));
 
     out.stream.listen((var e) {
       expect(e, ['hi there']);
     });
 
-    out.output(OutputEvent(Level.debug, ['hi there']));
+    out.output(OutputEvent(level: Level.debug, lines: ['hi there']));
   });
 
   test('respects pause', () {
@@ -32,8 +32,8 @@ void main() {
     });
 
     sub.pause();
-    out.output(OutputEvent(Level.debug, ['dropped']));
+    out.output(OutputEvent(level: Level.debug, lines: ['dropped']));
     sub.resume();
-    out.output(OutputEvent(Level.debug, ['hi there']));
+    out.output(OutputEvent(level: Level.debug, lines: ['hi there']));
   });
 }

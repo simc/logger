@@ -29,8 +29,17 @@ class LogEvent {
 class OutputEvent {
   final Level level;
   final List<String> lines;
+  final dynamic message;
+  final dynamic error;
+  final StackTrace? stackTrace;
 
-  OutputEvent(this.level, this.lines);
+  OutputEvent({
+    required this.level,
+    required this.lines,
+    this.message,
+    this.error,
+    this.stackTrace,
+  });
 }
 
 @Deprecated('Use a custom LogFilter instead')
@@ -115,7 +124,13 @@ class Logger {
       var output = _printer.log(logEvent);
 
       if (output.isNotEmpty) {
-        var outputEvent = OutputEvent(level, output);
+        var outputEvent = OutputEvent(
+            level: level,
+            lines: output,
+            message: message,
+            error: error,
+            stackTrace: stackTrace,
+        );
         // Issues with log output should NOT influence
         // the main software behavior.
         try {

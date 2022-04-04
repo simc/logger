@@ -8,7 +8,7 @@ void main() {
 
     final multiOutput = MultiOutput([output1, output2]);
 
-    final event0 = OutputEvent(Level.info, []);
+    final event0 = OutputEvent(level: Level.info, lines: []);
     multiOutput.output(event0);
 
     expect(output1.buffer.length, 1);
@@ -16,7 +16,7 @@ void main() {
     expect(output1.buffer.elementAt(0), equals(output2.buffer.elementAt(0)));
     expect(output1.buffer.elementAt(0), equals(event0));
 
-    final event1 = OutputEvent(Level.info, []);
+    final event1 = OutputEvent(level: Level.info, lines: []);
     multiOutput.output(event1);
 
     expect(output1.buffer.length, 2);
@@ -29,11 +29,11 @@ void main() {
 
   test('passing null does not throw an exception', () {
     final output = MultiOutput(null);
-    output.output(OutputEvent(Level.info, []));
+    output.output(OutputEvent(level: Level.info, lines: []));
   });
 
   test('passing null in the list does not throw an exception', () {
     final output = MultiOutput([null]);
-    output.output(OutputEvent(Level.info, []));
+    output.output(OutputEvent(level: Level.info, lines: []));
   });
 }
