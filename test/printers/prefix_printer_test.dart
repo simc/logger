@@ -1,7 +1,8 @@
+import 'package:logger/src/logger.dart';
 import 'package:logger/src/printers/prefix_printer.dart';
+import 'package:logger/src/printers/pretty_printer.dart';
+import 'package:logger/src/printers/simple_printer.dart';
 import 'package:test/test.dart';
-
-import 'package:logger/logger.dart';
 
 void main() {
   var debugEvent = LogEvent(Level.debug, 'debug', 'blah', StackTrace.current);
