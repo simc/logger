@@ -1,7 +1,9 @@
+import 'package:logger/src/log_printer.dart';
+import 'package:logger/src/logger.dart';
+import 'package:logger/src/printers/simple_printer.dart';
 import 'package:test/test.dart';
 
 import 'package:logger/src/printers/hybrid_printer.dart';
-import 'package:logger/logger.dart';
 
 final realPrinter = SimplePrinter();
 
