@@ -25,6 +25,7 @@ class PrettyPrinter extends LogPrinter {
   static const doubleDivider = '─';
   static const singleDivider = '┄';
 
+  static final whiteColor = AnsiColor.fg(255);
   static final levelColors = {
     Level.verbose: AnsiColor.fg(AnsiColor.grey(0.5)),
     Level.debug: AnsiColor.none(),
@@ -312,8 +313,7 @@ class PrettyPrinter extends LogPrinter {
       for (var line in error.split('\n')) {
         buffer.add(
           color(verticalLineAtLevel) +
-              errorColor.resetForeground +
-              errorColor(line) +
+              errorColor(whiteColor(line)) +
               errorColor.resetBackground,
         );
       }
