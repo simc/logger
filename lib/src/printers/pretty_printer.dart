@@ -129,7 +129,7 @@ class PrettyPrinter extends LogPrinter {
         stackTraceStr = formatStackTrace(StackTrace.current, methodCount);
       }
     } else if (errorMethodCount > 0) {
-      stackTraceStr = formatStackTrace(event.stackTrace, errorMethodCount);
+      stackTraceStr = formatStackTrace(event.stackTrace, event.error == null ? methodCount : errorMethodCount);
     }
 
     var errorStr = event.error?.toString();
