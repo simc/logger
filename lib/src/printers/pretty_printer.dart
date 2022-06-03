@@ -74,7 +74,6 @@ class PrettyPrinter extends LogPrinter {
   final bool colors;
   final bool printEmojis;
   final bool printTime;
-  final List<RegExp> stacktraceFilters;
 
   /// To prevent ascii 'boxing' of any log [Level] include the level in map for excludeBox,
   /// for example to prevent boxing of [Level.verbose] and [Level.info] use excludeBox:{Level.verbose:true, Level.info:true}
@@ -100,7 +99,6 @@ class PrettyPrinter extends LogPrinter {
     this.printTime = false,
     this.excludeBox = const {},
     this.noBoxingByDefault = false,
-    this.stacktraceFilters = const [],
   }) {
     _startTime ??= DateTime.now();
 
@@ -150,6 +148,12 @@ class PrettyPrinter extends LogPrinter {
     );
   }
 
+  bool includeStacktraceLine(String line) =>
+      !(_discardDeviceStacktraceLine(line) ||
+          _discardWebStacktraceLine(line) ||
+          _discardBrowserStacktraceLine(line) ||
+          line.isEmpty);
+
   String? formatStackTrace(StackTrace? stackTrace, int methodCount) {
     var lines = stackTrace.toString().split('\n');
     if (stackTraceBeginIndex > 0 && stackTraceBeginIndex < lines.length - 1) {
@@ -158,16 +162,11 @@ class PrettyPrinter extends LogPrinter {
     var formatted = <String>[];
     var count = 0;
     for (var line in lines) {
-      if (_discardDeviceStacktraceLine(line) ||
-          _discardWebStacktraceLine(line) ||
-          _discardBrowserStacktraceLine(line) ||
-          _discardUserStacktraceLine(line) ||
-          line.isEmpty) {
-        continue;
-      }
-      formatted.add('#$count   ${line.replaceFirst(RegExp(r'#\d+\s+'), '')}');
-      if (++count == methodCount) {
-        break;
+      if (includeStacktraceLine(line)) {
+        formatted.add('#$count   ${line.replaceFirst(RegExp(r'#\d+\s+'), '')}');
+        if (++count == methodCount) {
+          break;
+        }
       }
     }
 
@@ -203,9 +202,6 @@ class PrettyPrinter extends LogPrinter {
     return match.group(1)!.startsWith('package:logger') ||
         match.group(1)!.startsWith('dart:');
   }
-
-  bool _discardUserStacktraceLine(String line) =>
-      stacktraceFilters.any((element) => element.hasMatch(line));
 
   String getTime() {
     String _threeDigits(int n) {
