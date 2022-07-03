@@ -120,6 +120,7 @@ class Logger {
         // the main software behavior.
         try {
           _output.output(outputEvent);
+          _updateListeners(outputEvent);
         } catch (e, s) {
           print(e);
           print(s);
@@ -128,8 +129,34 @@ class Logger {
     }
   }
 
+  /// calling all output listeners.
+  void _updateListeners(OutputEvent event) {
+    for (final element in _outputListeners) {
+      element.output(event);
+    }
+  }
+
+  /// List of listeners for output events.
+  static final List<LogOutput> _outputListeners = [];
+
+  /// Add a listener for output events.
+  static void addOutputListener(LogOutput listener) {
+    _outputListeners.add(listener);
+  }
+
+  /// Remove a listener for output events.
+  static void removeOutputListener(LogOutput listener) {
+    _outputListeners.remove(listener);
+  }
+
+  /// remove all output listeners.
+  static void clearOutputListeners() {
+    _outputListeners.clear();
+  }
+
   /// Closes the logger and releases all resources.
   void close() {
+    clearOutputListeners();
     _active = false;
     _filter.destroy();
     _printer.destroy();
