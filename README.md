@@ -157,7 +157,7 @@ The default implementation (`ConsoleOutput`) send every line to the system conso
 class ConsoleOutput extends LogOutput {
   @override
   void output(OutputEvent event) {
-    for (var line in event.lines) {
+    for (final line in event.lines) {
       print(line);
     }
   }

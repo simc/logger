@@ -25,33 +25,33 @@ void main() {
   test('prefixes logs', () {
     var printer = PrefixPrinter(PrettyPrinter());
     var actualLog = printer.log(infoEvent);
-    actualLog.forEach((logString) {
+    for (final logString in actualLog) {
       expect(logString, contains('INFO'));
-    });
+    }
 
     var debugLog = printer.log(debugEvent);
-    debugLog.forEach((logString) {
+    for (final logString in debugLog) {
       expect(logString, contains('DEBUG'));
-    });
+    }
   });
 
   test('can supply own prefixes', () {
     var printer = PrefixPrinter(PrettyPrinter(), debug: 'BLAH');
     var actualLog = printer.log(debugEvent);
-    actualLog.forEach((logString) {
+    for (final logString in actualLog) {
       expect(logString, contains('BLAH'));
-    });
+    }
   });
 
   test('pads to same length', () {
     const longPrefix = 'EXTRALONGPREFIX';
     const len = longPrefix.length;
     var printer = PrefixPrinter(SimplePrinter(), debug: longPrefix);
-    for (var event in allEvents) {
+    for (final event in allEvents) {
       var l1 = printer.log(event);
-      l1.forEach((logString) {
+      for (final logString in l1) {
         expect(logString.substring(0, len), isNot(contains('[')));
-      });
+      }
     }
   });
 }

@@ -65,7 +65,7 @@ void main() {
     logger = Logger(filter: _AlwaysFilter(), printer: callbackPrinter);
 
     var levels = Level.values.take(6);
-    for (var level in levels) {
+    for (final level in levels) {
       var message = Random().nextInt(999999999).toString();
       logger.log(level, message);
       expect(printedLevel, level);

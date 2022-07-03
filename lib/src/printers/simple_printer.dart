@@ -50,7 +50,7 @@ class SimplePrinter extends LogPrinter {
   String _stringifyMessage(dynamic message) {
     final finalMessage = message is Function ? message() : message;
     if (finalMessage is Map || finalMessage is Iterable) {
-      var encoder = JsonEncoder.withIndent(null);
+      var encoder = const JsonEncoder.withIndent(null);
       return encoder.convert(finalMessage);
     } else {
       return finalMessage.toString();

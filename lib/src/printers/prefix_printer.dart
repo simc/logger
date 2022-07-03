@@ -37,7 +37,8 @@ class PrefixPrinter extends LogPrinter {
   }
 
   int _longestPrefixLength() {
-    var compFunc = (String a, String b) => a.length > b.length ? a : b;
-    return _prefixMap.values.reduce(compFunc).length;
+    return _prefixMap.values.reduce(_compFunc).length;
   }
+
+  String _compFunc(String a, String b) => a.length > b.length ? a : b;
 }

@@ -104,7 +104,7 @@ class PrettyPrinter extends LogPrinter {
 
     var doubleDividerLine = StringBuffer();
     var singleDividerLine = StringBuffer();
-    for (var i = 0; i < lineLength - 1; i++) {
+    for (int i = 0; i < lineLength - 1; i++) {
       doubleDividerLine.write(doubleDivider);
       singleDividerLine.write(singleDivider);
     }
@@ -115,7 +115,9 @@ class PrettyPrinter extends LogPrinter {
 
     // Translate excludeBox map (constant if default) to includeBox map with all Level enum possibilities
     includeBox = {};
-    Level.values.forEach((l) => includeBox[l] = !noBoxingByDefault);
+    for (final l in Level.values) {
+      includeBox[l] = !noBoxingByDefault;
+    }
     excludeBox.forEach((k, v) => includeBox[k] = !v);
   }
 
@@ -155,7 +157,7 @@ class PrettyPrinter extends LogPrinter {
     }
     var formatted = <String>[];
     var count = 0;
-    for (var line in lines) {
+    for (final line in lines) {
       if (_discardDeviceStacktraceLine(line) ||
           _discardWebStacktraceLine(line) ||
           _discardBrowserStacktraceLine(line) ||
@@ -275,13 +277,13 @@ class PrettyPrinter extends LogPrinter {
     // This code is non trivial and a type annotation here helps understanding.
     // ignore: omit_local_variable_types
     List<String> buffer = [];
-    var verticalLineAtLevel = (includeBox[level]!) ? (verticalLine + ' ') : '';
+    var verticalLineAtLevel = (includeBox[level]!) ? ('$verticalLine ') : '';
     var color = _getLevelColor(level);
     if (includeBox[level]!) buffer.add(color(_topBorder));
 
     if (error != null) {
       var errorColor = _getErrorColor(level);
-      for (var line in error.split('\n')) {
+      for (final line in error.split('\n')) {
         buffer.add(
           color(verticalLineAtLevel) +
               errorColor.resetForeground +
@@ -293,7 +295,7 @@ class PrettyPrinter extends LogPrinter {
     }
 
     if (stacktrace != null) {
-      for (var line in stacktrace.split('\n')) {
+      for (final line in stacktrace.split('\n')) {
         buffer.add(color('$verticalLineAtLevel$line'));
       }
       if (includeBox[level]!) buffer.add(color(_middleBorder));
@@ -305,7 +307,7 @@ class PrettyPrinter extends LogPrinter {
     }
 
     var emoji = _getEmoji(level);
-    for (var line in message.split('\n')) {
+    for (final line in message.split('\n')) {
       buffer.add(color('$verticalLineAtLevel$emoji$line'));
     }
     if (includeBox[level]!) buffer.add(color(_bottomBorder));

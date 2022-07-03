@@ -13,21 +13,29 @@ import 'package:logger/src/log_printer.dart';
 /// Will use the pretty printer for all logs except Level.debug
 /// logs, which will use SimplePrinter().
 class HybridPrinter extends LogPrinter {
-  final LogPrinter _realPrinter;
-  var _printerMap;
+  final Map<Level, LogPrinter> _printerMap;
 
-  HybridPrinter(this._realPrinter,
-      {debug, verbose, wtf, info, warning, error}) {
-    _printerMap = {
-      Level.debug: debug ?? _realPrinter,
-      Level.verbose: verbose ?? _realPrinter,
-      Level.wtf: wtf ?? _realPrinter,
-      Level.info: info ?? _realPrinter,
-      Level.warning: warning ?? _realPrinter,
-      Level.error: error ?? _realPrinter,
-    };
-  }
+  HybridPrinter(
+    LogPrinter realPrinter, {
+    LogPrinter? debug,
+    LogPrinter? verbose,
+    LogPrinter? wtf,
+    LogPrinter? info,
+    LogPrinter? warning,
+    LogPrinter? error,
+  }) : _printerMap = {
+          Level.debug: debug ?? realPrinter,
+          Level.verbose: verbose ?? realPrinter,
+          Level.wtf: wtf ?? realPrinter,
+          Level.info: info ?? realPrinter,
+          Level.warning: warning ?? realPrinter,
+          Level.error: error ?? realPrinter,
+        };
 
   @override
-  List<String> log(LogEvent event) => _printerMap[event.level].log(event);
+  List<String> log(LogEvent event) {
+    final log = _printerMap[event.level]?.log(event);
+    assert(log != null);
+    return log ?? [];
+  }
 }

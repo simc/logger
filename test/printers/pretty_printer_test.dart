@@ -8,7 +8,7 @@ void main() {
 
   final prettyPrinter = PrettyPrinter(printEmojis: false);
   test('should print an emoji when option is enabled', () {
-    final expectedMessage = 'some message with an emoji';
+    const expectedMessage = 'some message with an emoji';
     final emojiPrettyPrinter = PrettyPrinter(printEmojis: true);
 
     final event = LogEvent(
@@ -25,7 +25,7 @@ void main() {
   });
 
   test('deal with string type message', () {
-    final expectedMessage = 'normally computed message';
+    const expectedMessage = 'normally computed message';
     final withFunction = LogEvent(
       Level.debug,
       expectedMessage,
@@ -52,7 +52,7 @@ void main() {
 
     final actualLog = prettyPrinter.log(withMap);
     final actualLogString = _readMessage(actualLog);
-    for (var expectedMsg in expectedMsgMap.entries) {
+    for (final expectedMsg in expectedMsgMap.entries) {
       expect(
         actualLogString,
         contains('${expectedMsg.key}: ${expectedMsg.value}'),
@@ -70,7 +70,7 @@ void main() {
     );
     final actualLog = prettyPrinter.log(withIterable);
     final actualLogString = _readMessage(actualLog);
-    for (var expectedMsg in expectedMsgItems) {
+    for (final expectedMsg in expectedMsgItems) {
       expect(
         actualLogString,
         contains(expectedMsg),
@@ -79,7 +79,7 @@ void main() {
   });
 
   test('deal with Function type message', () {
-    final expectedMessage = 'heavily computed very pretty Message';
+    const expectedMessage = 'heavily computed very pretty Message';
     final withFunction = LogEvent(
       Level.debug,
       () => expectedMessage,
