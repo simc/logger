@@ -3,6 +3,7 @@ library logger;
 
 export 'src/ansi_color.dart';
 
+export 'src/filters/type_filter.dart';
 export 'src/filters/development_filter.dart';
 export 'src/filters/production_filter.dart';
 
@@ -16,6 +17,8 @@ export 'src/printers/logfmt_printer.dart';
 export 'src/printers/simple_printer.dart';
 export 'src/printers/hybrid_printer.dart';
 export 'src/printers/prefix_printer.dart';
+
+export 'src/loggers/caller_logger.dart';
 
 export 'src/log_output.dart'
     if (dart.library.io) 'src/outputs/file_output.dart';
