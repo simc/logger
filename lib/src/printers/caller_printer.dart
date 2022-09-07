@@ -38,7 +38,7 @@ class CallerPrinter extends LogPrinter {
 
   CallerPrinter({
     this.printTime = false,
-    this.colors = true,
+    this.colors = false,
     // StackTrace args
     this.stackTraceBeginIndex = 0,
     this.methodCount = 0,

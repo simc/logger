@@ -17,6 +17,7 @@ export 'src/printers/logfmt_printer.dart';
 export 'src/printers/simple_printer.dart';
 export 'src/printers/hybrid_printer.dart';
 export 'src/printers/prefix_printer.dart';
+export 'src/printers/caller_printer.dart';
 
 export 'src/loggers/caller_logger.dart';
 
