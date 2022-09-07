@@ -47,7 +47,7 @@ class CallerPrinter extends LogPrinter {
   @override
   List<String> log(LogEvent event) {
     var messageStr = _stringifyMessage(event.message);
-    var errorStr = event.error != null ? 'ERROR: ${event.error}' : '';
+    var errorStr = event.error != null ? '\nERROR: ${event.error}' : '';
     var timeStr = printTime ? 'TIME: ${DateTime.now().toIso8601String()}' : '';
 
     var stackTraceStr;
@@ -58,9 +58,12 @@ class CallerPrinter extends LogPrinter {
     } else if (errorMethodCount > 0) {
       stackTraceStr = _formatStackTrace(event.stackTrace, errorMethodCount);
     }
+    stackTraceStr = stackTraceStr == null
+        ? ''
+        : '\n' + stackTraceStr + '\n========================================';
 
     return [
-      '${_labelFor(event.level)} $timeStr $messageStr\n$errorStr\n$stackTraceStr\n========================'
+      '${_labelFor(event.level)} $timeStr$messageStr$errorStr$stackTraceStr'
     ];
   }
 
