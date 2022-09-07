@@ -29,9 +29,11 @@ class CallerPrinter extends LogPrinter {
   /// This can be useful if, for instance, Logger is wrapped in another class and
   /// you wish to remove these wrapped calls from stack trace
   final int stackTraceBeginIndex;
+
+  // No of methods to show in StackTrace when no error or exception is thrown
   final int methodCount;
 
-  /// No of methods to show in stackTrace
+  /// No of methods to show in StackTrace when error or exception is thrown
   final int errorMethodCount;
 
   CallerPrinter({
@@ -39,7 +41,7 @@ class CallerPrinter extends LogPrinter {
     this.colors = true,
     // StackTrace args
     this.stackTraceBeginIndex = 0,
-    this.methodCount = 2,
+    this.methodCount = 0,
     this.errorMethodCount = 10,
   });
   @override
