@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:logger/logger.dart';
 import 'package:logger/src/filters/type_filter.dart';
 import 'package:logger/src/loggers/caller_logger.dart';
+import 'package:logger/src/printers/caller_printer.dart';
 
 var logger = CallerLogger(
   ignoreCallers: {
@@ -92,7 +93,7 @@ dynamic syncTryCatchHandler(
       }
     }
   } catch (e, s) {
-    logger.e('catchUnknown', e, s);
+    logger.e('catchUnknown:', e, s);
     catchUnknownExceptions?.call();
   }
 }

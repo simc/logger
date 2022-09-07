@@ -1,4 +1,5 @@
 import 'package:logger/logger.dart';
+import 'package:logger/src/printers/caller_printer.dart';
 
 /// Custom Logger which prints the caller of the Logger.log() method.
 ///
@@ -34,10 +35,9 @@ class CallerLogger extends Logger {
     } else {
       ignoreCallers.addAll(_defaultIgnoreCallers);
     }
-    print(ignoreCallers);
     return CallerLogger._(
       filter: filter,
-      printer: printer,
+      printer: printer ?? CallerPrinter(),
       output: output,
       level: level,
       ignoreCallers: ignoreCallers,
