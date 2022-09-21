@@ -1,4 +1,4 @@
-import 'package:logger_fork/src/logger.dart';
+import 'package:logger_fork/src/logger_fork.dart';
 import 'package:logger_fork/src/printers/simple_printer.dart';
 import 'package:test/test.dart';
 

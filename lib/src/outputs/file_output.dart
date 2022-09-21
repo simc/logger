@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:logger_fork/src/logger.dart';
+import 'package:logger_fork/src/logger_fork.dart';
 import 'package:logger_fork/src/log_output.dart';
 
 /// Writes the log output to a file.

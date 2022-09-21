@@ -1,4 +1,4 @@
-import 'package:logger_fork/src/logger.dart';
+import 'package:logger_fork/src/logger_fork.dart';
 
 /// An abstract handler of log events.
 ///

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:logger_fork/src/logger.dart';
+import 'package:logger_fork/src/logger_fork.dart';
 import 'package:logger_fork/src/log_output.dart';
 
 class StreamOutput extends LogOutput {

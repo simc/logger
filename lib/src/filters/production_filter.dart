@@ -1,4 +1,4 @@
-import 'package:logger_fork/src/logger.dart';
+import 'package:logger_fork/src/logger_fork.dart';
 import 'package:logger_fork/src/log_filter.dart';
 
 /// Prints all logs with `level >= Logger.level` even in production.

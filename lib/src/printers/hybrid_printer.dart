@@ -1,4 +1,4 @@
-import 'package:logger_fork/src/logger.dart';
+import 'package:logger_fork/src/logger_fork.dart';
 import 'package:logger_fork/src/log_printer.dart';
 
 /// A decorator for a [LogPrinter] that allows for the composition of

@@ -1,5 +1,5 @@
 import 'package:logger_fork/src/log_printer.dart';
-import 'package:logger_fork/src/logger.dart';
+import 'package:logger_fork/src/logger_fork.dart';
 
 /// Outputs a logfmt message:
 /// ```

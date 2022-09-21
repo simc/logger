@@ -1,4 +1,4 @@
-import 'package:logger_fork/logger.dart';
+import 'package:logger_fork/logger_fork.dart';
 import 'package:test/test.dart';
 
 void main() {

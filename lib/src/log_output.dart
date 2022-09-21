@@ -1,4 +1,4 @@
-import 'package:logger_fork/src/logger.dart';
+import 'package:logger_fork/src/logger_fork.dart';
 
 /// Log output receives a [OutputEvent] from [LogPrinter] and sends it to the
 /// desired destination.
