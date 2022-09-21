@@ -1,4 +1,4 @@
-import 'package:logger/src/logger.dart';
+import 'package:logger_fork/src/logger.dart';
 
 /// An abstract filter of log messages.
 ///

@@ -1,5 +1,5 @@
-import 'package:logger/src/log_output.dart';
-import 'package:logger/src/logger.dart';
+import 'package:logger_fork/src/log_output.dart';
+import 'package:logger_fork/src/logger.dart';
 
 /// Logs simultaneously to multiple [LogOutput] outputs.
 class MultiOutput extends LogOutput {

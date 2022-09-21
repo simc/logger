@@ -1,5 +1,5 @@
-import 'package:logger/src/logger.dart';
-import 'package:logger/src/log_printer.dart';
+import 'package:logger_fork/src/logger.dart';
+import 'package:logger_fork/src/log_printer.dart';
 
 /// A decorator for a [LogPrinter] that allows for the composition of
 /// different printers to handle different log messages. Provide it's

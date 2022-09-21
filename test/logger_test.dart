@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:test/test.dart';
-import 'package:logger/logger.dart';
+import 'package:logger_fork/logger.dart';
 
 typedef PrinterCallback = List<String> Function(
   Level level,
@@ -89,8 +89,7 @@ void main() {
       expect(printedStackTrace, stackTrace);
     }
 
-    expect(() => logger.log(Level.verbose, 'Test', StackTrace.current),
-        throwsArgumentError);
+    expect(() => logger.log(Level.verbose, 'Test', StackTrace.current), throwsArgumentError);
     expect(() => logger.log(Level.nothing, 'Test'), throwsArgumentError);
   });
 

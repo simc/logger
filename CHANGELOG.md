@@ -1,3 +1,7 @@
+## 1.2.0
+
+* [Feat] enabling logger_flutter_fork to work again
+
 ## 1.1.0
 - Enhance boxing control with PrettyPrinter. Credits to @timmaffett
 - Add trailing new line to FileOutput. Credits to @narumishi

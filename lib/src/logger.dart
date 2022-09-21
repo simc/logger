@@ -1,9 +1,9 @@
-import 'package:logger/src/filters/development_filter.dart';
-import 'package:logger/src/printers/pretty_printer.dart';
-import 'package:logger/src/outputs/console_output.dart';
-import 'package:logger/src/log_filter.dart';
-import 'package:logger/src/log_printer.dart';
-import 'package:logger/src/log_output.dart';
+import 'package:logger_fork/src/filters/development_filter.dart';
+import 'package:logger_fork/src/printers/pretty_printer.dart';
+import 'package:logger_fork/src/outputs/console_output.dart';
+import 'package:logger_fork/src/log_filter.dart';
+import 'package:logger_fork/src/log_printer.dart';
+import 'package:logger_fork/src/log_output.dart';
 
 /// [Level]s to control logging output. Logging can be enabled to include all
 /// levels above certain [Level].
@@ -101,8 +101,7 @@ class Logger {
   }
 
   /// Log a message with [level].
-  void log(Level level, dynamic message,
-      [dynamic error, StackTrace? stackTrace]) {
+  void log(Level level, dynamic message, [dynamic error, StackTrace? stackTrace]) {
     if (!_active) {
       throw ArgumentError('Logger has already been closed.');
     } else if (error != null && error is StackTrace) {
