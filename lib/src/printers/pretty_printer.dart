@@ -82,6 +82,7 @@ class PrettyPrinter extends LogPrinter {
   /// To make the default for every level to prevent boxing entirely set [noBoxingByDefault] to true
   /// (boxing can still be turned on for some levels by using something like excludeBox:{Level.error:false} )
   final bool noBoxingByDefault;
+  final bool isStackTraceEnabled;
 
   late final Map<Level, bool> includeBox;
 
@@ -99,6 +100,7 @@ class PrettyPrinter extends LogPrinter {
     this.printTime = false,
     this.excludeBox = const {},
     this.noBoxingByDefault = false,
+    this.isStackTraceEnabled = true,
   }) {
     _startTime ??= DateTime.now();
 
@@ -292,11 +294,13 @@ class PrettyPrinter extends LogPrinter {
       if (includeBox[level]!) buffer.add(color(_middleBorder));
     }
 
-    if (stacktrace != null) {
-      for (var line in stacktrace.split('\n')) {
-        buffer.add(color('$verticalLineAtLevel$line'));
+    if(isStackTraceEnabled){
+      if (stacktrace != null) {
+        for (var line in stacktrace.split('\n')) {
+          buffer.add(color('$verticalLineAtLevel$line'));
+        }
+        if (includeBox[level]!) buffer.add(color(_middleBorder));
       }
-      if (includeBox[level]!) buffer.add(color(_middleBorder));
     }
 
     if (time != null) {
