@@ -1,9 +1,9 @@
 import 'package:logger/src/filters/development_filter.dart';
-import 'package:logger/src/printers/pretty_printer.dart';
-import 'package:logger/src/outputs/console_output.dart';
 import 'package:logger/src/log_filter.dart';
-import 'package:logger/src/log_printer.dart';
 import 'package:logger/src/log_output.dart';
+import 'package:logger/src/log_printer.dart';
+import 'package:logger/src/outputs/console_output.dart';
+import 'package:logger/src/printers/pretty_printer.dart';
 
 /// [Level]s to control logging output. Logging can be enabled to include all
 /// levels above certain [Level].
@@ -33,10 +33,8 @@ class OutputEvent {
   OutputEvent(this.level, this.lines);
 }
 
-@Deprecated('Use a custom LogFilter instead')
 typedef LogCallback = void Function(LogEvent event);
 
-@Deprecated('Use a custom LogOutput instead')
 typedef OutputCallback = void Function(OutputEvent event);
 
 /// Use instances of logger to send log messages to the [LogPrinter].
@@ -45,6 +43,10 @@ class Logger {
   ///
   /// All logs with levels below this level will be omitted.
   static Level level = Level.verbose;
+
+  static final Set<LogCallback> _logCallbacks = {};
+
+  static final Set<OutputCallback> _outputCallbacks = {};
 
   final LogFilter _filter;
   final LogPrinter _printer;
@@ -112,6 +114,9 @@ class Logger {
     }
     var logEvent = LogEvent(level, message, error, stackTrace);
     if (_filter.shouldLog(logEvent)) {
+      for (var callback in _logCallbacks) {
+        callback(logEvent);
+      }
       var output = _printer.log(logEvent);
 
       if (output.isNotEmpty) {
@@ -119,6 +124,9 @@ class Logger {
         // Issues with log output should NOT influence
         // the main software behavior.
         try {
+          for (var callback in _outputCallbacks) {
+            callback(outputEvent);
+          }
           _output.output(outputEvent);
         } catch (e, s) {
           print(e);
@@ -134,5 +142,29 @@ class Logger {
     _filter.destroy();
     _printer.destroy();
     _output.destroy();
+  }
+
+  /// Register a [LogCallback] which is called for each new [LogEvent].
+  static void addLogListener(LogCallback callback) {
+    _logCallbacks.add(callback);
+  }
+
+  /// Removes a [LogCallback] which was previously registered.
+  ///
+  /// Returns whether the callback was successfully removed.
+  static bool removeLogListener(LogCallback callback) {
+    return _logCallbacks.remove(callback);
+  }
+
+  /// Register an [OutputCallback] which is called for each new [OutputEvent].
+  static void addOutputListener(OutputCallback callback) {
+    _outputCallbacks.add(callback);
+  }
+
+  /// Removes a [OutputCallback] which was previously registered.
+  ///
+  /// Returns whether the callback was successfully removed.
+  static void removeOutputListener(OutputCallback callback) {
+    _outputCallbacks.remove(callback);
   }
 }
