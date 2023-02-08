@@ -23,14 +23,16 @@ class LogEvent {
   final dynamic error;
   final StackTrace? stackTrace;
 
-  LogEvent(this.level, this.message, this.error, this.stackTrace);
+  LogEvent(this.level, this.message, [this.error, this.stackTrace]);
 }
 
 class OutputEvent {
-  final Level level;
   final List<String> lines;
+  final LogEvent origin;
 
-  OutputEvent(this.level, this.lines);
+  Level get level => origin.level;
+
+  OutputEvent(this.origin, this.lines);
 }
 
 typedef LogCallback = void Function(LogEvent event);
@@ -120,7 +122,7 @@ class Logger {
       var output = _printer.log(logEvent);
 
       if (output.isNotEmpty) {
-        var outputEvent = OutputEvent(level, output);
+        var outputEvent = OutputEvent(logEvent, output);
         // Issues with log output should NOT influence
         // the main software behavior.
         try {
