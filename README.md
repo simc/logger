@@ -1,7 +1,7 @@
 # Logger
 
 [![pub package](https://img.shields.io/pub/v/logger.svg?logo=dart&logoColor=00b9fc)](https://pub.dartlang.org/packages/logger)
-[![CI](https://img.shields.io/github/workflow/status/Bungeefan/logger/Dart%20CI/master?logo=github-actions&logoColor=white)](https://github.com/Bungeefan/logger/actions)
+[![CI](https://img.shields.io/github/actions/workflow/status/Bungeefan/logger/dart.yml?branch=master&logo=github-actions&logoColor=white)](https://github.com/Bungeefan/logger/actions)
 [![Last Commits](https://img.shields.io/github/last-commit/Bungeefan/logger?logo=git&logoColor=white)](https://github.com/Bungeefan/logger/commits/master)
 [![Pull Requests](https://img.shields.io/github/issues-pr/Bungeefan/logger?logo=github&logoColor=white)](https://github.com/Bungeefan/logger/pulls)
 [![Code size](https://img.shields.io/github/languages/code-size/Bungeefan/logger?logo=github&logoColor=white)](https://github.com/Bungeefan/logger)
