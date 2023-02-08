@@ -1,5 +1,5 @@
-import 'package:logger/src/logger.dart';
 import 'package:logger/src/log_printer.dart';
+import 'package:logger/src/logger.dart';
 
 /// A decorator for a [LogPrinter] that allows for the prepending of every
 /// line in the log output with a string for the level of that log. For
@@ -37,7 +37,7 @@ class PrefixPrinter extends LogPrinter {
   }
 
   int _longestPrefixLength() {
-    var compFunc = (String a, String b) => a.length > b.length ? a : b;
+    compFunc(String a, String b) => a.length > b.length ? a : b;
     return _prefixMap.values.reduce(compFunc).length;
   }
 }

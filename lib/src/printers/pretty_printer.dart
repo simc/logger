@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:logger/src/logger.dart';
-import 'package:logger/src/log_printer.dart';
 import 'package:logger/src/ansi_color.dart';
+import 'package:logger/src/log_printer.dart';
+import 'package:logger/src/logger.dart';
 
 /// Default implementation of [LogPrinter].
 ///
@@ -115,7 +115,9 @@ class PrettyPrinter extends LogPrinter {
 
     // Translate excludeBox map (constant if default) to includeBox map with all Level enum possibilities
     includeBox = {};
-    Level.values.forEach((l) => includeBox[l] = !noBoxingByDefault);
+    for (var l in Level.values) {
+      includeBox[l] = !noBoxingByDefault;
+    }
     excludeBox.forEach((k, v) => includeBox[k] = !v);
   }
 
@@ -202,22 +204,22 @@ class PrettyPrinter extends LogPrinter {
   }
 
   String getTime() {
-    String _threeDigits(int n) {
+    String threeDigits(int n) {
       if (n >= 100) return '$n';
       if (n >= 10) return '0$n';
       return '00$n';
     }
 
-    String _twoDigits(int n) {
+    String twoDigits(int n) {
       if (n >= 10) return '$n';
       return '0$n';
     }
 
     var now = DateTime.now();
-    var h = _twoDigits(now.hour);
-    var min = _twoDigits(now.minute);
-    var sec = _twoDigits(now.second);
-    var ms = _threeDigits(now.millisecond);
+    var h = twoDigits(now.hour);
+    var min = twoDigits(now.minute);
+    var sec = twoDigits(now.second);
+    var ms = threeDigits(now.millisecond);
     var timeSinceStart = now.difference(_startTime!).toString();
     return '$h:$min:$sec.$ms (+$timeSinceStart)';
   }
@@ -275,7 +277,7 @@ class PrettyPrinter extends LogPrinter {
     // This code is non trivial and a type annotation here helps understanding.
     // ignore: omit_local_variable_types
     List<String> buffer = [];
-    var verticalLineAtLevel = (includeBox[level]!) ? (verticalLine + ' ') : '';
+    var verticalLineAtLevel = (includeBox[level]!) ? ('$verticalLine ') : '';
     var color = _getLevelColor(level);
     if (includeBox[level]!) buffer.add(color(_topBorder));
 
