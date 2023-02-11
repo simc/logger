@@ -7,6 +7,9 @@
 [![Code size](https://img.shields.io/github/languages/code-size/leisim/logger?logo=github&logoColor=white)](https://github.com/leisim/logger)
 [![License](https://img.shields.io/github/license/leisim/logger?logo=open-source-initiative&logoColor=green)](https://github.com/leisim/logger/blob/master/LICENSE)
 
+
+NOTICE: This repo is NOT LONGER leading! The new repo is here: https://github.com/Bungeefan/logger
+
 Small, easy to use and extensible logger which prints beautiful logs.<br>
 Inspired by [logger](https://github.com/orhanobut/logger) for Android.
 
