@@ -1,9 +1,17 @@
+## 1.2.0
+
+- Added origin LogEvent to OutputEvent. Addresses [#133](https://github.com/simc/logger/pull/133).
+- Re-added LogListener and OutputListener (Should restore compatibility with logger_flutter).
+- Replaced pedantic with lints.
+
 ## 1.1.0
+
 - Enhance boxing control with PrettyPrinter. Credits to @timmaffett
 - Add trailing new line to FileOutput. Credits to @narumishi
 - Add functions as a log message. Credits to @smotastic
 
 ## 1.0.0
+
 - Stable nullsafety
 
 ## 1.0.0-nullsafety.0
@@ -22,7 +30,7 @@
 ## 0.9.2
 - Add `PrefixPrinter`. Credits to @tkutcher.
 - Add `HybridPrinter`. Credits to @tkutcher.
- 
+
 ## 0.9.1
 - Fix logging output for Flutter Web. Credits to @nateshmbhat and @Cocotus.
 
@@ -45,7 +53,7 @@
 - Fix SimplePrinter showTime #12
 - Remove buffer field
 - Update library structure (thanks @marcgraub!)
- 
+
 ## 0.7.0+1
 - Added `ProductionFilter`, `FileOutput`, `MemoryOutput`, `SimplePrinter`
 - Breaking: Changed `LogFilter`, `LogPrinter` and `LogOutput`
