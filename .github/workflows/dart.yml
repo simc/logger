@@ -3,6 +3,9 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
+# See documentation here:
+# https://github.com/dart-lang/setup-dart/blob/main/README.md
+
 name: Dart
 
 on:
@@ -14,15 +17,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        sdk: [ stable, 2.17.0 ]
     steps:
       - uses: actions/checkout@v3
 
-      # Note: This workflow uses the latest stable version of the Dart SDK.
-      # You can specify other versions if desired, see documentation here:
-      # https://github.com/dart-lang/setup-dart/blob/main/README.md
-      # - uses: dart-lang/setup-dart@v1
-      - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: ${{ matrix.sdk }}
 
       - name: Install dependencies
         run: dart pub get
