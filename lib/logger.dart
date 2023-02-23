@@ -7,6 +7,7 @@ export 'src/filters/production_filter.dart';
 export 'src/log_filter.dart';
 // [LogOutput] class needs to be exposed unconditionally
 export 'src/log_output.dart';
+// ignore: duplicate_export
 export 'src/log_output.dart'
     if (dart.library.io) 'src/outputs/file_output.dart';
 export 'src/log_printer.dart';
