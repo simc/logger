@@ -1,3 +1,8 @@
+## 1.2.2
+
+- Fixed conditional LogOutput export. Credits to
+  @ChristopheOosterlynck [#4](https://github.com/Bungeefan/logger/pull/4).
+
 ## 1.2.1
 
 - Reverted `${this}` interpolation and added linter
