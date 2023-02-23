@@ -1,3 +1,8 @@
+## 1.2.1
+
+- Reverted `${this}` interpolation and added linter
+  ignore. [#1](https://github.com/Bungeefan/logger/issues/1)
+
 ## 1.2.0
 
 - Added origin LogEvent to OutputEvent. Addresses [#133](https://github.com/simc/logger/pull/133).
