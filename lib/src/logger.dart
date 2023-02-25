@@ -142,6 +142,10 @@ class Logger {
     }
   }
 
+  bool isClosed() {
+    return !_active;
+  }
+
   /// Closes the logger and releases all resources.
   void close() {
     _active = false;
