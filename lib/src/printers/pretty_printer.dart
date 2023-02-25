@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:logger/src/ansi_color.dart';
 import 'package:logger/src/log_printer.dart';
@@ -151,23 +152,25 @@ class PrettyPrinter extends LogPrinter {
   }
 
   String? formatStackTrace(StackTrace? stackTrace, int methodCount) {
-    var lines = stackTrace.toString().split('\n');
-    if (stackTraceBeginIndex > 0 && stackTraceBeginIndex < lines.length - 1) {
-      lines = lines.sublist(stackTraceBeginIndex);
-    }
-    var formatted = <String>[];
-    var count = 0;
-    for (var line in lines) {
-      if (_discardDeviceStacktraceLine(line) ||
-          _discardWebStacktraceLine(line) ||
-          _discardBrowserStacktraceLine(line) ||
-          line.isEmpty) {
+    List<String> lines = stackTrace
+        .toString()
+        .split('\n')
+        .where(
+          (line) =>
+              !_discardDeviceStacktraceLine(line) &&
+              !_discardWebStacktraceLine(line) &&
+              !_discardBrowserStacktraceLine(line) &&
+              line.isNotEmpty,
+        )
+        .toList();
+    List<String> formatted = [];
+
+    for (int count = 0; count < min(lines.length, methodCount); count++) {
+      var line = lines[count];
+      if (count < stackTraceBeginIndex) {
         continue;
       }
       formatted.add('#$count   ${line.replaceFirst(RegExp(r'#\d+\s+'), '')}');
-      if (++count == methodCount) {
-        break;
-      }
     }
 
     if (formatted.isEmpty) {
