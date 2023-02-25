@@ -277,8 +277,6 @@ class PrettyPrinter extends LogPrinter {
     String? error,
     String? stacktrace,
   ) {
-    // This code is non trivial and a type annotation here helps understanding.
-    // ignore: omit_local_variable_types
     List<String> buffer = [];
     var verticalLineAtLevel = (includeBox[level]!) ? ('$verticalLine ') : '';
     var color = _getLevelColor(level);
