@@ -139,7 +139,7 @@ class PrettyPrinter extends LogPrinter {
 
     String? timeStr;
     if (printTime) {
-      timeStr = getTime();
+      timeStr = getTime(event.time);
     }
 
     return _formatAndPrint(
@@ -206,7 +206,7 @@ class PrettyPrinter extends LogPrinter {
         match.group(1)!.startsWith('dart:');
   }
 
-  String getTime() {
+  String getTime(DateTime time) {
     String threeDigits(int n) {
       if (n >= 100) return '$n';
       if (n >= 10) return '0$n';
@@ -218,7 +218,7 @@ class PrettyPrinter extends LogPrinter {
       return '0$n';
     }
 
-    var now = DateTime.now();
+    var now = time;
     var h = twoDigits(now.hour);
     var min = twoDigits(now.minute);
     var sec = twoDigits(now.second);

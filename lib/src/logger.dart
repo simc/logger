@@ -23,7 +23,11 @@ class LogEvent {
   final dynamic error;
   final StackTrace? stackTrace;
 
-  LogEvent(this.level, this.message, [this.error, this.stackTrace]);
+  /// Time when this log was created.
+  final DateTime time;
+
+  LogEvent(this.level, this.message, [this.error, this.stackTrace])
+      : time = DateTime.now();
 }
 
 class OutputEvent {
