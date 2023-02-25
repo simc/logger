@@ -1,14 +1,11 @@
-import 'package:logger/src/log_printer.dart';
-import 'package:logger/src/logger.dart';
-import 'package:logger/src/printers/simple_printer.dart';
+import 'package:logger/logger.dart';
 import 'package:test/test.dart';
-
-import 'package:logger/src/printers/hybrid_printer.dart';
 
 final realPrinter = SimplePrinter();
 
 class TestLogPrinter extends LogPrinter {
   LogEvent? latestEvent;
+
   @override
   List<String> log(LogEvent event) {
     latestEvent = event;

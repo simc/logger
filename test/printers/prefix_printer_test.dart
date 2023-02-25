@@ -1,7 +1,4 @@
-import 'package:logger/src/logger.dart';
-import 'package:logger/src/printers/prefix_printer.dart';
-import 'package:logger/src/printers/pretty_printer.dart';
-import 'package:logger/src/printers/simple_printer.dart';
+import 'package:logger/logger.dart';
 import 'package:test/test.dart';
 
 void main() {
