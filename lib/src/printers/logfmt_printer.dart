@@ -29,6 +29,9 @@ class LogfmtPrinter extends LogPrinter {
         }
       });
     }
+    if (event.error != null) {
+      output.write(' error="${event.error}"');
+    }
 
     return [output.toString()];
   }
