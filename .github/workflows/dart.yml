@@ -17,8 +17,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    continue-on-error: true
     strategy:
+      fail-fast: false
       matrix:
         sdk: [ stable, 2.17.0 ]
     steps:
