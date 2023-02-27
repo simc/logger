@@ -5,14 +5,12 @@ export 'src/ansi_color.dart';
 export 'src/filters/development_filter.dart';
 export 'src/filters/production_filter.dart';
 export 'src/log_filter.dart';
-// [LogOutput] class needs to be exposed unconditionally
 export 'src/log_output.dart';
-// ignore: duplicate_export
-export 'src/log_output.dart'
-    if (dart.library.io) 'src/outputs/file_output.dart';
 export 'src/log_printer.dart';
 export 'src/logger.dart';
 export 'src/outputs/console_output.dart';
+export 'src/outputs/file_output_stub.dart'
+    if (dart.library.io) 'src/outputs/file_output.dart';
 export 'src/outputs/memory_output.dart';
 export 'src/outputs/multi_output.dart';
 export 'src/outputs/stream_output.dart';
