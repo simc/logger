@@ -84,6 +84,10 @@ class PrettyPrinter extends LogPrinter {
   /// (boxing can still be turned on for some levels by using something like excludeBox:{Level.error:false} )
   final bool noBoxingByDefault;
 
+  /// To exclude user's custom path
+  /// for example if you made a Mylog util redirect to logger.log,
+  /// you can add your Mylog path in [excludePaths].
+  final List<String> excludePaths;
   late final Map<Level, bool> includeBox;
 
   String _topBorder = '';
@@ -100,6 +104,7 @@ class PrettyPrinter extends LogPrinter {
     this.printTime = false,
     this.excludeBox = const {},
     this.noBoxingByDefault = false,
+    this.excludePaths = const [],
   }) {
     _startTime ??= DateTime.now();
 
@@ -180,12 +185,25 @@ class PrettyPrinter extends LogPrinter {
     }
   }
 
+  bool _isInExcludePaths(String segment) {
+    for (var element in excludePaths) {
+      if (segment.startsWith(element)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   bool _discardDeviceStacktraceLine(String line) {
     var match = _deviceStackTraceRegex.matchAsPrefix(line);
     if (match == null) {
       return false;
     }
-    return match.group(2)!.startsWith('package:logger');
+    final segment = match.group(2)!;
+    if (segment.startsWith('package:logger')) {
+      return true;
+    }
+    return _isInExcludePaths(segment);
   }
 
   bool _discardWebStacktraceLine(String line) {
@@ -193,8 +211,12 @@ class PrettyPrinter extends LogPrinter {
     if (match == null) {
       return false;
     }
-    return match.group(1)!.startsWith('packages/logger') ||
-        match.group(1)!.startsWith('dart-sdk/lib');
+    final segment = match.group(1)!;
+    if (segment.startsWith('packages/logger') ||
+        segment.startsWith('dart-sdk/lib')) {
+      return true;
+    }
+    return _isInExcludePaths(segment);
   }
 
   bool _discardBrowserStacktraceLine(String line) {
@@ -202,8 +224,11 @@ class PrettyPrinter extends LogPrinter {
     if (match == null) {
       return false;
     }
-    return match.group(1)!.startsWith('package:logger') ||
-        match.group(1)!.startsWith('dart:');
+    final segment = match.group(1)!;
+    if (segment.startsWith('package:logger') || segment.startsWith('dart:')) {
+      return true;
+    }
+    return _isInExcludePaths(segment);
   }
 
   String getTime(DateTime time) {
