@@ -1,3 +1,12 @@
+## 1.3.0
+
+- Fixed stackTrace count when using `stackTraceBeginIndex`.
+  Addresses [#114](https://github.com/simc/logger/issues/114).
+- Added proper FileOutput stub. Addresses [#94](https://github.com/simc/logger/issues/94).
+- Added `isClosed`. Addresses [#130](https://github.com/simc/logger/issues/130).
+- Added `time` to LogEvent.
+- Added `error` handling to LogfmtPrinter.
+
 ## 1.2.2
 
 - Fixed conditional LogOutput export. Credits to
