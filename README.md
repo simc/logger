@@ -141,14 +141,16 @@ request.
 
 ### Colors
 
-Please note that all IDEs (VSCode, XCode, Android Studio, IntelliJ) do not 
-support ANSI escape sequences in their terminal outputs. These escape sequences 
-are used to color output. If using such an IDE do not configure colored output.
+Please note that in some cases ANSI escape sequences do not work under macOS.
+These escape sequences are used to colorize the output.
+This seems to be related to a Flutter bug that affects iOS builds:
+https://github.com/flutter/flutter/issues/64491
 
-However, if you are using a JetBrains IDE (Android Studio, IntelliJ, etc.) 
-you can make use of the [Grep Console Plugin](https://plugins.jetbrains.com/plugin/7125-grep-console)
-and the [`PrefixPrinter`](/lib/src/printers/prefix_printer.dart) 
-decorator to achieved colored logs for any logger:
+However, if you are using a JetBrains IDE (Android Studio, IntelliJ, etc.)
+you can make use of
+the [Grep Console Plugin](https://plugins.jetbrains.com/plugin/7125-grep-console)
+and the [`PrefixPrinter`](/lib/src/printers/prefix_printer.dart)
+decorator to achieve colored logs for any logger:
 
 ```dart
 var logger = Logger(
