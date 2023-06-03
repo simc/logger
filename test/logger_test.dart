@@ -1,7 +1,7 @@
 import 'dart:math';
 
-import 'package:test/test.dart';
 import 'package:logger/logger.dart';
+import 'package:test/test.dart';
 
 typedef PrinterCallback = List<String> Function(
   Level level,
@@ -167,5 +167,12 @@ void main() {
 
     logger.w('This is');
     expect(printedMessage, 'This is');
+  });
+
+  test('Logger.close', () {
+    var logger = Logger();
+    expect(logger.isClosed(), false);
+    logger.close();
+    expect(logger.isClosed(), true);
   });
 }

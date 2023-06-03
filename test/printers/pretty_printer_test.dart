@@ -2,8 +2,8 @@ import 'package:logger/logger.dart';
 import 'package:test/test.dart';
 
 void main() {
-  String _readMessage(List<String> log) {
-    return log.reduce((acc, val) => acc + val);
+  String readMessage(List<String> log) {
+    return log.reduce((acc, val) => "$acc\n$val");
   }
 
   final prettyPrinter = PrettyPrinter(printEmojis: false);
@@ -19,7 +19,7 @@ void main() {
     );
 
     final actualLog = emojiPrettyPrinter.log(event);
-    final actualLogString = _readMessage(actualLog);
+    final actualLogString = readMessage(actualLog);
     expect(actualLogString, contains(PrettyPrinter.levelEmojis[Level.debug]));
     expect(actualLogString, contains(expectedMessage));
   });
@@ -34,7 +34,7 @@ void main() {
     );
 
     final actualLog = prettyPrinter.log(withFunction);
-    final actualLogString = _readMessage(actualLog);
+    final actualLogString = readMessage(actualLog);
 
     expect(
       actualLogString,
@@ -51,7 +51,7 @@ void main() {
     );
 
     final actualLog = prettyPrinter.log(withMap);
-    final actualLogString = _readMessage(actualLog);
+    final actualLogString = readMessage(actualLog);
     for (var expectedMsg in expectedMsgMap.entries) {
       expect(
         actualLogString,
@@ -69,7 +69,7 @@ void main() {
       StackTrace.current,
     );
     final actualLog = prettyPrinter.log(withIterable);
-    final actualLogString = _readMessage(actualLog);
+    final actualLogString = readMessage(actualLog);
     for (var expectedMsg in expectedMsgItems) {
       expect(
         actualLogString,
@@ -88,11 +88,35 @@ void main() {
     );
 
     final actualLog = prettyPrinter.log(withFunction);
-    final actualLogString = _readMessage(actualLog);
+    final actualLogString = readMessage(actualLog);
 
     expect(
       actualLogString,
       contains(expectedMessage),
+    );
+  });
+
+  test('stackTraceBeginIndex', () {
+    final prettyPrinter = PrettyPrinter(
+      stackTraceBeginIndex: 2,
+    );
+    final withFunction = LogEvent(
+      Level.debug,
+      "some message",
+      'some error',
+      StackTrace.current,
+    );
+
+    final actualLog = prettyPrinter.log(withFunction);
+    final actualLogString = readMessage(actualLog);
+
+    expect(
+      actualLogString,
+      allOf([
+        isNot(contains("#0   ")),
+        isNot(contains("#1   ")),
+        contains("#2   "),
+      ]),
     );
   });
 }

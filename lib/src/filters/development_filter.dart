@@ -1,5 +1,5 @@
-import 'package:logger/src/logger.dart';
 import 'package:logger/src/log_filter.dart';
+import 'package:logger/src/logger.dart';
 
 /// Prints all logs with `level >= Logger.level` while in development mode (eg
 /// when `assert`s are evaluated, Flutter calls this debug mode).
