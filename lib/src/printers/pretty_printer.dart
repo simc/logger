@@ -150,9 +150,6 @@ class PrettyPrinter extends LogPrinter {
 
   String? formatStackTrace(StackTrace? stackTrace, int methodCount) {
     var lines = stackTrace.toString().split('\n');
-    if (stackTraceBeginIndex > 0 && stackTraceBeginIndex < lines.length - 1) {
-      lines = lines.sublist(stackTraceBeginIndex);
-    }
     var formatted = <String>[];
     var count = 0;
     for (var line in lines) {
@@ -162,6 +159,12 @@ class PrettyPrinter extends LogPrinter {
           line.isEmpty) {
         continue;
       }
+
+      if(count < stackTraceBeginIndex) {
+        count++;
+        continue;
+      }
+
       formatted.add('#$count   ${line.replaceFirst(RegExp(r'#\d+\s+'), '')}');
       if (++count == methodCount) {
         break;
