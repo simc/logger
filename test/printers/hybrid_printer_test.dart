@@ -1,9 +1,9 @@
-import 'package:logger/src/log_printer.dart';
-import 'package:logger/src/logger.dart';
-import 'package:logger/src/printers/simple_printer.dart';
+import 'package:logger_fork/src/log_printer.dart';
+import 'package:logger_fork/src/logger_fork.dart';
+import 'package:logger_fork/src/printers/simple_printer.dart';
 import 'package:test/test.dart';
 
-import 'package:logger/src/printers/hybrid_printer.dart';
+import 'package:logger_fork/src/printers/hybrid_printer.dart';
 
 final realPrinter = SimplePrinter();
 
@@ -23,8 +23,7 @@ void main() {
 
   var debugEvent = LogEvent(Level.debug, 'debug', 'blah', StackTrace.current);
   var infoEvent = LogEvent(Level.info, 'info', 'blah', StackTrace.current);
-  var warningEvent =
-      LogEvent(Level.warning, 'warning', 'blah', StackTrace.current);
+  var warningEvent = LogEvent(Level.warning, 'warning', 'blah', StackTrace.current);
   var errorEvent = LogEvent(Level.error, 'error', 'blah', StackTrace.current);
 
   var hybridPrinter = HybridPrinter(printerA, debug: printerB, error: printerC);

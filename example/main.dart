@@ -1,4 +1,4 @@
-import 'package:logger/logger.dart';
+import 'package:logger_fork/logger_fork.dart';
 
 var logger = Logger(
   printer: PrettyPrinter(),
@@ -9,8 +9,7 @@ var loggerNoStack = Logger(
 );
 
 void main() {
-  print(
-      'Run with either `dart example/main.dart` or `dart --enable-asserts example/main.dart`.');
+  print('Run with either `dart example/main.dart` or `dart --enable-asserts example/main.dart`.');
   demo();
 }
 

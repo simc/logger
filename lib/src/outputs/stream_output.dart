@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:logger/src/logger.dart';
-import 'package:logger/src/log_output.dart';
+import 'package:logger_fork/src/logger_fork.dart';
+import 'package:logger_fork/src/log_output.dart';
 
 class StreamOutput extends LogOutput {
   late StreamController<List<String>> _controller;

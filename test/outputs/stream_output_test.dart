@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:logger/logger.dart';
+import 'package:logger_fork/logger_fork.dart';
 
 void main() {
   test('writes to a Stream', () {

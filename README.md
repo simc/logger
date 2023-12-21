@@ -1,11 +1,13 @@
 # Logger
 
 [![pub package](https://img.shields.io/pub/v/logger.svg?logo=dart&logoColor=00b9fc)](https://pub.dartlang.org/packages/logger)
-[![CI](https://img.shields.io/github/workflow/status/leisim/logger/Dart%20CI/master?logo=github-actions&logoColor=white)](https://github.com/leisim/logger/actions)
-[![Last Commits](https://img.shields.io/github/last-commit/leisim/logger?logo=git&logoColor=white)](https://github.com/leisim/logger/commits/master)
-[![Pull Requests](https://img.shields.io/github/issues-pr/leisim/logger?logo=github&logoColor=white)](https://github.com/leisim/logger/pulls)
-[![Code size](https://img.shields.io/github/languages/code-size/leisim/logger?logo=github&logoColor=white)](https://github.com/leisim/logger)
-[![License](https://img.shields.io/github/license/leisim/logger?logo=open-source-initiative&logoColor=green)](https://github.com/leisim/logger/blob/master/LICENSE)
+<!-- [![CI](https://img.shields.io/github/workflow/status/fmotalleb/logger/Dart%20CI/master?logo=github-actions&logoColor=white)](https://github.com/fmotalleb/logger/actions) -->
+[![Last Commits](https://img.shields.io/github/last-commit/fmotalleb/logger?logo=git&logoColor=white)](https://github.com/fmotalleb/logger/commits/master)
+[![Pull Requests](https://img.shields.io/github/issues-pr/fmotalleb/logger?logo=github&logoColor=white)](https://github.com/fmotalleb/logger/pulls)
+[![Code size](https://img.shields.io/github/languages/code-size/fmotalleb/logger?logo=github&logoColor=white)](https://github.com/fmotalleb/logger)
+[![License](https://img.shields.io/github/license/fmotalleb/logger?logo=open-source-initiative&logoColor=green)](https://github.com/fmotalleb/logger/blob/master/LICENSE)
+
+**this is a fork of [logger](https://pub.dev/packages/logger) to enable [logger_flutter_fork](https://pub.dev/packages/logger_flutter_fork)**
 
 
 > [!CAUTION] 
@@ -161,7 +163,7 @@ The default implementation (`ConsoleOutput`) send every line to the system conso
 class ConsoleOutput extends LogOutput {
   @override
   void output(OutputEvent event) {
-    for (var line in event.lines) {
+    for (final line in event.lines) {
       print(line);
     }
   }
