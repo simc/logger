@@ -1,11 +1,11 @@
 name: logger
 description: Small, easy to use and extensible logger which prints beautiful logs.
-version: 1.1.0
-homepage: https://github.com/leisim/logger
+version: 1.3.0
+repository: https://github.com/Bungeefan/logger
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: "^2.12.0"
 
 dev_dependencies:
   test: ^1.16.8
-  pedantic: ^1.11.0
+  lints: ^2.0.1

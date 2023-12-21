@@ -1,9 +1,36 @@
+## 1.3.0
+
+- Fixed stackTrace count when using `stackTraceBeginIndex`.
+  Addresses [#114](https://github.com/simc/logger/issues/114).
+- Added proper FileOutput stub. Addresses [#94](https://github.com/simc/logger/issues/94).
+- Added `isClosed`. Addresses [#130](https://github.com/simc/logger/issues/130).
+- Added `time` to LogEvent.
+- Added `error` handling to LogfmtPrinter.
+
+## 1.2.2
+
+- Fixed conditional LogOutput export. Credits to
+  @ChristopheOosterlynck [#4](https://github.com/Bungeefan/logger/pull/4).
+
+## 1.2.1
+
+- Reverted `${this}` interpolation and added linter
+  ignore. [#1](https://github.com/Bungeefan/logger/issues/1)
+
+## 1.2.0
+
+- Added origin LogEvent to OutputEvent. Addresses [#133](https://github.com/simc/logger/pull/133).
+- Re-added LogListener and OutputListener (Should restore compatibility with logger_flutter).
+- Replaced pedantic with lints.
+
 ## 1.1.0
+
 - Enhance boxing control with PrettyPrinter. Credits to @timmaffett
 - Add trailing new line to FileOutput. Credits to @narumishi
 - Add functions as a log message. Credits to @smotastic
 
 ## 1.0.0
+
 - Stable nullsafety
 
 ## 1.0.0-nullsafety.0
@@ -22,7 +49,7 @@
 ## 0.9.2
 - Add `PrefixPrinter`. Credits to @tkutcher.
 - Add `HybridPrinter`. Credits to @tkutcher.
- 
+
 ## 0.9.1
 - Fix logging output for Flutter Web. Credits to @nateshmbhat and @Cocotus.
 
@@ -45,7 +72,7 @@
 - Fix SimplePrinter showTime #12
 - Remove buffer field
 - Update library structure (thanks @marcgraub!)
- 
+
 ## 0.7.0+1
 - Added `ProductionFilter`, `FileOutput`, `MemoryOutput`, `SimplePrinter`
 - Breaking: Changed `LogFilter`, `LogPrinter` and `LogOutput`

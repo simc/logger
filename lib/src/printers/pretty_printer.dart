@@ -1,8 +1,9 @@
 import 'dart:convert';
+import 'dart:math';
 
-import 'package:logger/src/logger.dart';
-import 'package:logger/src/log_printer.dart';
 import 'package:logger/src/ansi_color.dart';
+import 'package:logger/src/log_printer.dart';
+import 'package:logger/src/logger.dart';
 
 /// Default implementation of [LogPrinter].
 ///
@@ -24,6 +25,7 @@ class PrettyPrinter extends LogPrinter {
   static const doubleDivider = '─';
   static const singleDivider = '┄';
 
+  static final whiteColor = AnsiColor.fg(255);
   static final levelColors = {
     Level.verbose: AnsiColor.fg(AnsiColor.grey(0.5)),
     Level.debug: AnsiColor.none(),
@@ -83,6 +85,10 @@ class PrettyPrinter extends LogPrinter {
   /// (boxing can still be turned on for some levels by using something like excludeBox:{Level.error:false} )
   final bool noBoxingByDefault;
 
+  /// To exclude user's custom path
+  /// for example if you made a Mylog util redirect to logger.log,
+  /// you can add your Mylog path in [excludePaths].
+  final List<String> excludePaths;
   late final Map<Level, bool> includeBox;
 
   String _topBorder = '';
@@ -99,6 +105,7 @@ class PrettyPrinter extends LogPrinter {
     this.printTime = false,
     this.excludeBox = const {},
     this.noBoxingByDefault = false,
+    this.excludePaths = const [],
   }) {
     _startTime ??= DateTime.now();
 
@@ -115,7 +122,9 @@ class PrettyPrinter extends LogPrinter {
 
     // Translate excludeBox map (constant if default) to includeBox map with all Level enum possibilities
     includeBox = {};
-    Level.values.forEach((l) => includeBox[l] = !noBoxingByDefault);
+    for (var l in Level.values) {
+      includeBox[l] = !noBoxingByDefault;
+    }
     excludeBox.forEach((k, v) => includeBox[k] = !v);
   }
 
@@ -136,7 +145,7 @@ class PrettyPrinter extends LogPrinter {
 
     String? timeStr;
     if (printTime) {
-      timeStr = getTime();
+      timeStr = getTime(event.time);
     }
 
     return _formatAndPrint(
@@ -149,23 +158,25 @@ class PrettyPrinter extends LogPrinter {
   }
 
   String? formatStackTrace(StackTrace? stackTrace, int methodCount) {
-    var lines = stackTrace.toString().split('\n');
-    if (stackTraceBeginIndex > 0 && stackTraceBeginIndex < lines.length - 1) {
-      lines = lines.sublist(stackTraceBeginIndex);
-    }
-    var formatted = <String>[];
-    var count = 0;
-    for (var line in lines) {
-      if (_discardDeviceStacktraceLine(line) ||
-          _discardWebStacktraceLine(line) ||
-          _discardBrowserStacktraceLine(line) ||
-          line.isEmpty) {
+    List<String> lines = stackTrace
+        .toString()
+        .split('\n')
+        .where(
+          (line) =>
+              !_discardDeviceStacktraceLine(line) &&
+              !_discardWebStacktraceLine(line) &&
+              !_discardBrowserStacktraceLine(line) &&
+              line.isNotEmpty,
+        )
+        .toList();
+    List<String> formatted = [];
+
+    for (int count = 0; count < min(lines.length, methodCount); count++) {
+      var line = lines[count];
+      if (count < stackTraceBeginIndex) {
         continue;
       }
       formatted.add('#$count   ${line.replaceFirst(RegExp(r'#\d+\s+'), '')}');
-      if (++count == methodCount) {
-        break;
-      }
     }
 
     if (formatted.isEmpty) {
@@ -175,12 +186,25 @@ class PrettyPrinter extends LogPrinter {
     }
   }
 
+  bool _isInExcludePaths(String segment) {
+    for (var element in excludePaths) {
+      if (segment.startsWith(element)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   bool _discardDeviceStacktraceLine(String line) {
     var match = _deviceStackTraceRegex.matchAsPrefix(line);
     if (match == null) {
       return false;
     }
-    return match.group(2)!.startsWith('package:logger');
+    final segment = match.group(2)!;
+    if (segment.startsWith('package:logger')) {
+      return true;
+    }
+    return _isInExcludePaths(segment);
   }
 
   bool _discardWebStacktraceLine(String line) {
@@ -188,8 +212,12 @@ class PrettyPrinter extends LogPrinter {
     if (match == null) {
       return false;
     }
-    return match.group(1)!.startsWith('packages/logger') ||
-        match.group(1)!.startsWith('dart-sdk/lib');
+    final segment = match.group(1)!;
+    if (segment.startsWith('packages/logger') ||
+        segment.startsWith('dart-sdk/lib')) {
+      return true;
+    }
+    return _isInExcludePaths(segment);
   }
 
   bool _discardBrowserStacktraceLine(String line) {
@@ -197,27 +225,30 @@ class PrettyPrinter extends LogPrinter {
     if (match == null) {
       return false;
     }
-    return match.group(1)!.startsWith('package:logger') ||
-        match.group(1)!.startsWith('dart:');
+    final segment = match.group(1)!;
+    if (segment.startsWith('package:logger') || segment.startsWith('dart:')) {
+      return true;
+    }
+    return _isInExcludePaths(segment);
   }
 
-  String getTime() {
-    String _threeDigits(int n) {
+  String getTime(DateTime time) {
+    String threeDigits(int n) {
       if (n >= 100) return '$n';
       if (n >= 10) return '0$n';
       return '00$n';
     }
 
-    String _twoDigits(int n) {
+    String twoDigits(int n) {
       if (n >= 10) return '$n';
       return '0$n';
     }
 
-    var now = DateTime.now();
-    var h = _twoDigits(now.hour);
-    var min = _twoDigits(now.minute);
-    var sec = _twoDigits(now.second);
-    var ms = _threeDigits(now.millisecond);
+    var now = time;
+    var h = twoDigits(now.hour);
+    var min = twoDigits(now.minute);
+    var sec = twoDigits(now.second);
+    var ms = threeDigits(now.millisecond);
     var timeSinceStart = now.difference(_startTime!).toString();
     return '$h:$min:$sec.$ms (+$timeSinceStart)';
   }
@@ -272,10 +303,8 @@ class PrettyPrinter extends LogPrinter {
     String? error,
     String? stacktrace,
   ) {
-    // This code is non trivial and a type annotation here helps understanding.
-    // ignore: omit_local_variable_types
     List<String> buffer = [];
-    var verticalLineAtLevel = (includeBox[level]!) ? (verticalLine + ' ') : '';
+    var verticalLineAtLevel = (includeBox[level]!) ? ('$verticalLine ') : '';
     var color = _getLevelColor(level);
     if (includeBox[level]!) buffer.add(color(_topBorder));
 
@@ -284,8 +313,7 @@ class PrettyPrinter extends LogPrinter {
       for (var line in error.split('\n')) {
         buffer.add(
           color(verticalLineAtLevel) +
-              errorColor.resetForeground +
-              errorColor(line) +
+              errorColor(whiteColor(line)) +
               errorColor.resetBackground,
         );
       }

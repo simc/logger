@@ -1,26 +1,46 @@
-name: Dart CI
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+# See documentation here:
+# https://github.com/dart-lang/setup-dart/blob/main/README.md
+
+name: Dart
 
 on:
   push:
-    branches: [ master ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ master ]
+    branches: [ "master" ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
-    container:
-      image: google/dart:2.12
-
+    strategy:
+      fail-fast: false
+      matrix:
+        sdk: [ stable, 2.17.0 ]
     steps:
-    - uses: actions/checkout@v2
-    - name: Install dependencies
-      run: pub get
-    - name: Format code
-      run: dartfmt -n --set-exit-if-changed .
-    - name: Static analyze project
-      run: dartanalyzer --fatal-infos --fatal-warnings .
-    - name: Run tests
-      run: pub run test
+      - uses: actions/checkout@v3
+
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: ${{ matrix.sdk }}
+
+      - name: Install dependencies
+        run: dart pub get
+
+      # Uncomment this step to verify the use of 'dart format' on each commit.
+      - name: Verify formatting
+        run: dart format --output=none --set-exit-if-changed .
+
+      # Consider passing '--fatal-infos' for slightly stricter analysis.
+      - name: Analyze project source
+        run: dart analyze --fatal-infos
+
+      # Your project will need to have tests in test/ and a dependency on
+      # package:test for this step to succeed. Note that Flutter projects will
+      # want to change this to 'flutter test'.
+      - name: Run tests
+        run: dart test
