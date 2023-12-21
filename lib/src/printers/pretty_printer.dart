@@ -124,14 +124,12 @@ class PrettyPrinter extends LogPrinter {
     var messageStr = stringifyMessage(event.message);
 
     String? stackTraceStr;
-    if (event.stackTrace == null) {
-      if (methodCount > 0) {
-        stackTraceStr = formatStackTrace(StackTrace.current, methodCount);
-      }
-    } else if (errorMethodCount > 0) {
+    if (event.error != null && errorMethodCount > 0) {
       stackTraceStr = formatStackTrace(event.stackTrace, errorMethodCount);
+    } else if(methodCount > 0) {
+      stackTraceStr = formatStackTrace(event.stackTrace ?? StackTrace.current, methodCount);
     }
-
+    
     var errorStr = event.error?.toString();
 
     String? timeStr;
